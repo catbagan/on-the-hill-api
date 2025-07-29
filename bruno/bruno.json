@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "on-the-hill-api",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

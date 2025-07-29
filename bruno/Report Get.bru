@@ -1,0 +1,17 @@
+meta {
+  name: Report Get
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{host}}/api/report/get
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "memberId": "3212645"
+  }
+}

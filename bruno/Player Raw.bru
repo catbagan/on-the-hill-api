@@ -1,0 +1,17 @@
+meta {
+  name: Player Raw
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{host}}/api/player/raw
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "daniel catbagan"
+  }
+}
