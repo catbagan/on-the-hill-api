@@ -290,8 +290,13 @@ app.post("/report/get", authMiddleware(), async (c) => {
 
 const port = parseInt(process.env.PORT || "3000");
 console.log(`Server is running on port ${port}`);
+let hostname = "localhost";
+if (process.env.NODE_ENV === "production") {
+  hostname = "0.0.0.0";
+}
 
 serve({
   fetch: app.fetch,
   port,
+  hostname,
 });
