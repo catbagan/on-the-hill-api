@@ -73,8 +73,8 @@ export class APAClient {
       }),
     });
 
-    const loginData: GraphQLResponse<LoginResponse> =
-      await loginResponse.json();
+    const loginData =
+      (await loginResponse.json()) as GraphQLResponse<LoginResponse>;
 
     if (loginData.errors) {
       console.error("Login errors:", loginData.errors);
@@ -133,8 +133,8 @@ export class APAClient {
       },
     );
 
-    const authorizeData: GraphQLResponse<AuthorizeResponse> =
-      await authorizeResponse.json();
+    const authorizeData =
+      (await authorizeResponse.json()) as GraphQLResponse<AuthorizeResponse>;
 
     if (authorizeData.errors) {
       console.error("Authorize errors:", authorizeData.errors);
@@ -189,7 +189,7 @@ export class APAClient {
       ]),
     });
 
-    const data: GraphQLResponse<TokenResponse>[] = await response.json();
+    const data = (await response.json()) as GraphQLResponse<TokenResponse>[];
 
     if (data[0].errors) {
       console.error("Token generation errors:", data[0].errors);
@@ -209,8 +209,9 @@ export class APAClient {
       try {
         await this.generateAccessToken();
       } catch (error) {
-        console.error("Error generating access token:", error);
+        console.warn("Error generating access token:", error);
         try {
+          console.log("Attempting to login again");
           await this.login(this.username, this.password);
         } catch (error) {
           console.error("Error logging in:", error);
@@ -267,7 +268,7 @@ export class APAClient {
       body: JSON.stringify(requestBody),
     });
 
-    const data: GraphQLResponse<T>[] = await response.json();
+    const data = (await response.json()) as GraphQLResponse<T>[];
 
     if (data[0].errors) {
       console.error("GraphQL errors:", data[0].errors);

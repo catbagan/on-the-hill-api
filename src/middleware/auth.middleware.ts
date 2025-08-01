@@ -1,8 +1,4 @@
-import {
-  type CookieOptions,
-  createServerClient,
-  parseCookieHeader,
-} from "@supabase/ssr";
+import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Context, MiddlewareHandler } from "hono";
 import { env } from "hono/adapter";
@@ -44,7 +40,7 @@ export const supabaseMiddleware = (): MiddlewareHandler => {
         },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value, options }) =>
-            setCookie(c, name, value, options as CookieOptions),
+            setCookie(c, name, value, options as any),
           );
         },
       },
