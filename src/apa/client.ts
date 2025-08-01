@@ -1,24 +1,154 @@
-import {
-  Player,
-  PlayerTeam,
+import type {
+  AliasResponse,
+  AuthorizeResponse,
+  GraphQLResponse,
+  LoginResponse,
   Match,
   MatchDetails,
-  PlayerScore,
-  GraphQLResponse,
-  TokenResponse,
-  SearchResponse,
-  AliasResponse,
-  TeamScheduleResponse,
   MatchResponse,
-  GraphQLError,
+  Player,
+  PlayerTeam,
+  SearchResponse,
+  TeamScheduleResponse,
+  TokenResponse,
 } from "./types";
 
 export class APAClient {
-  private currentAuthToken: string | null = null;
-  private deviceRefreshToken: string;
+  private username: string;
+  private password: string;
 
-  constructor(deviceRefreshToken: string) {
-    this.deviceRefreshToken = deviceRefreshToken;
+  private currentAuthToken: string | null = null;
+  private deviceRefreshToken: string | null = null;
+
+  constructor(username: string, password: string) {
+    this.username = username;
+    this.password = password;
+  }
+
+  async login(username: string, password: string): Promise<string> {
+    const loginQuery = `mutation login($username: String!, $password: String!) {
+  login(input: {username: $username, password: $password}) {
+    __typename
+    ... on SuccessLoginPayload {
+      deviceRefreshToken
+      __typename
+    }
+    ... on PartialSuspendedLoginPayload {
+      leagueIds
+      deviceRefreshToken
+      __typename
+    }
+    ... on DeniedLoginPayload {
+      reason
+      __typename
+    }
+  }
+}`;
+
+    const loginResponse = await fetch("https://gql.poolplayers.com/graphql", {
+      method: "POST",
+      headers: {
+        accept: "*/*",
+        "accept-language": "en-US,en;q=0.9",
+        "apollographql-client-name": "MemberServices",
+        "apollographql-client-version": "3.18.37-3511",
+        "content-type": "application/json",
+        priority: "u=1, i",
+        "sec-ch-ua": '"Not)A;Brand";v="8", "Chromium";v="138"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"macOS"',
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        referer: "https://league.poolplayers.com/",
+        "user-agent":
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+        dnt: "1",
+        origin: "https://league.poolplayers.com/",
+      },
+      body: JSON.stringify({
+        operationName: "login",
+        variables: { username, password },
+        query: loginQuery,
+      }),
+    });
+
+    const loginData: GraphQLResponse<LoginResponse> =
+      await loginResponse.json();
+
+    if (loginData.errors) {
+      console.error("Login errors:", loginData.errors);
+      throw new Error(`Login error: ${loginData.errors[0].message}`);
+    }
+
+    if (!loginData.data || !loginData.data.login) {
+      throw new Error("No login data returned");
+    }
+
+    const loginResult = loginData.data.login;
+
+    if (loginResult.__typename === "DeniedLoginPayload") {
+      throw new Error(`Login denied: ${loginResult.reason}`);
+    }
+
+    if (!loginResult.deviceRefreshToken) {
+      throw new Error("No device refresh token returned from login");
+    }
+
+    const authorizeQuery = `mutation authorize($deviceRefreshToken: String!) {
+  authorize(deviceRefreshToken: $deviceRefreshToken) {
+    refreshToken
+    __typename
+  }
+}`;
+
+    const authorizeResponse = await fetch(
+      "https://gql.poolplayers.com/graphql",
+      {
+        method: "POST",
+        headers: {
+          accept: "*/*",
+          "accept-language": "en-US,en;q=0.9",
+          "apollographql-client-name": "MemberServices",
+          "apollographql-client-version": "3.18.37-3511",
+          "content-type": "application/json",
+          priority: "u=1, i",
+          "sec-ch-ua": '"Not)A;Brand";v="8", "Chromium";v="138"',
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": '"macOS"',
+          "sec-fetch-dest": "empty",
+          "sec-fetch-mode": "cors",
+          "sec-fetch-site": "same-site",
+          referer: "https://league.poolplayers.com/",
+          "user-agent":
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+          dnt: "1",
+          origin: "https://league.poolplayers.com/",
+        },
+        body: JSON.stringify({
+          operationName: "authorize",
+          variables: { deviceRefreshToken: loginResult.deviceRefreshToken },
+          query: authorizeQuery,
+        }),
+      },
+    );
+
+    const authorizeData: GraphQLResponse<AuthorizeResponse> =
+      await authorizeResponse.json();
+
+    if (authorizeData.errors) {
+      console.error("Authorize errors:", authorizeData.errors);
+      throw new Error(`Authorize error: ${authorizeData.errors[0].message}`);
+    }
+
+    if (!authorizeData.data || !authorizeData.data.authorize) {
+      throw new Error("No authorize data returned");
+    }
+
+    this.deviceRefreshToken = authorizeData.data.authorize.refreshToken;
+    const accessToken = await this.generateAccessToken();
+
+    return accessToken;
   }
 
   private async generateAccessToken(): Promise<string> {
@@ -75,9 +205,22 @@ export class APAClient {
   }
 
   private async getAuthHeaders(): Promise<Record<string, string>> {
-    // Generate a fresh token if we don't have one
     if (!this.currentAuthToken) {
-      await this.generateAccessToken();
+      try {
+        await this.generateAccessToken();
+      } catch (error) {
+        console.error("Error generating access token:", error);
+        try {
+          await this.login(this.username, this.password);
+        } catch (error) {
+          console.error("Error logging in:", error);
+          throw new Error("Error logging in");
+        }
+      }
+    }
+
+    if (!this.currentAuthToken) {
+      throw new Error("No auth token available");
     }
 
     return {
@@ -85,7 +228,7 @@ export class APAClient {
       "accept-language": "en-US,en;q=0.9",
       "apollographql-client-name": "MemberServices",
       "apollographql-client-version": "3.18.37-3511",
-      authorization: this.currentAuthToken!,
+      authorization: this.currentAuthToken,
       "content-type": "application/json",
       priority: "u=1, i",
       "sec-ch-ua": '"Not)A;Brand";v="8", "Chromium";v="138"',
@@ -105,7 +248,7 @@ export class APAClient {
   private async makeGraphQLRequest<T>(
     query: string,
     variables: any,
-    operationName?: string
+    operationName?: string,
   ): Promise<T> {
     const headers = await this.getAuthHeaders();
 
@@ -138,7 +281,7 @@ export class APAClient {
     return data[0].data;
   }
 
-  async searchForPlayer(playerName: string): Promise<APAPlayer | null> {
+  async searchForPlayer(playerName: string): Promise<Player | null> {
     const query = `query Search($query: String!) {
   search(query: $query) {
     suggestions
@@ -236,26 +379,23 @@ export class APAClient {
     const data = await this.makeGraphQLRequest<SearchResponse>(
       query,
       variables,
-      "Search"
+      "Search",
     );
 
     const searchResults = data.search.hits;
     if (searchResults.length === 0) {
-      console.log("No player found");
       return null;
     }
     if (searchResults.length > 1) {
-      console.log("Multiple players found");
       return null;
     }
 
     const apaPlayer = searchResults[0];
     if (apaPlayer.__typename !== "Member") {
-      console.log("Search result is not a player");
       return null;
     }
 
-    return apaPlayer;
+    return apaPlayer as Player;
   }
 
   async getTeamsForPlayer(memberId: string): Promise<PlayerTeam[]> {
@@ -375,7 +515,7 @@ export class APAClient {
           limit,
           offset,
         },
-        "TeamStat"
+        "TeamStat",
       );
 
       const pastTeams = data.alias.pastTeams;
@@ -383,21 +523,18 @@ export class APAClient {
 
       allTeams.push(...pastTeams);
 
-      // Check if we have more past teams to fetch
       if (pastTeams.length < limit) {
         hasMoreTeams = false;
       } else {
         offset += limit;
       }
 
-      // Only fetch current teams once (they don't need pagination)
       if (offset === 0) {
         allTeams.push(...currentTeams);
       }
     }
 
-    // 8-ball only for now
-    return allTeams.filter(t => t.__typename === "EightBallPlayer")
+    return allTeams.filter((t) => t.__typename === "EightBallPlayer");
   }
 
   async getMatchesForTeam(teamId: string): Promise<Match[]> {
@@ -454,12 +591,14 @@ export class APAClient {
     const data = await this.makeGraphQLRequest<TeamScheduleResponse>(
       query,
       { id: parseInt(teamId) },
-      "teamSchedule"
+      "teamSchedule",
     );
 
     // bye weeks have no id
     // unplayed matches have UNPLAYED status
-    return data.team.matches.filter(m => m.id != null).filter(m => m.status !== "UNPLAYED");
+    return data.team.matches
+      .filter((m) => m.id != null)
+      .filter((m) => m.status !== "UNPLAYED");
   }
 
   async getMatchDetails(scheduleId: string): Promise<MatchDetails> {
@@ -529,7 +668,7 @@ export class APAClient {
     const data = await this.makeGraphQLRequest<MatchResponse>(
       query,
       { id: parseInt(scheduleId) },
-      "MatchPage"
+      "MatchPage",
     );
     return data.match;
   }

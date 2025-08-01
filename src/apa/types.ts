@@ -27,7 +27,6 @@ export interface SearchResult {
   __typename: string;
 }
 
-// Team types
 export interface Team {
   id: string;
   name: string;
@@ -67,7 +66,6 @@ export interface HostLocation {
   __typename: string;
 }
 
-// Player team types
 export interface EightBallPlayer {
   id: string;
   isActive: boolean;
@@ -113,7 +111,6 @@ export interface MastersPlayer {
 
 export type PlayerTeam = EightBallPlayer | NineBallPlayer | MastersPlayer;
 
-// Match types
 export interface Match {
   id: string;
   week: number;
@@ -187,7 +184,6 @@ export interface PlayerScore {
   __typename: string;
 }
 
-// Statistics types
 export interface PlayerStats {
   overall: WinLossRecord;
   eightBall: WinLossRecord;
@@ -218,7 +214,6 @@ export interface PlayerMatch {
   defensiveShots: number;
 }
 
-// API Response types
 export interface GraphQLResponse<T> {
   data?: T;
   errors?: GraphQLError[];
@@ -264,4 +259,20 @@ export interface TeamScheduleResponse {
 
 export interface MatchResponse {
   match: MatchDetails;
+}
+
+export interface LoginResponse {
+  login: {
+    __typename: string;
+    deviceRefreshToken?: string;
+    leagueIds?: string[];
+    reason?: string;
+  };
+}
+
+export interface AuthorizeResponse {
+  authorize: {
+    refreshToken: string;
+    __typename: string;
+  };
 }

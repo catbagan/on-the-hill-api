@@ -1,8 +1,11 @@
-import { APAClient } from "./apa/client";
-import { apaPlayerToPlayer, apaTeamToTeam, Player } from "./types";
+import type { APAClient } from "./apa/client";
+import { apaPlayerToPlayer, apaTeamToTeam } from "./types";
 
-export const handlePlayerSearch = async (playerName: string, apaClient: APAClient): Promise<any | null> => {
-  const apaPlayer =  await apaClient.searchForPlayer(playerName);
+export const handlePlayerSearch = async (
+  playerName: string,
+  apaClient: APAClient,
+): Promise<any | null> => {
+  const apaPlayer = await apaClient.searchForPlayer(playerName);
   const player = apaPlayerToPlayer(apaPlayer);
 
   if (!player) {
@@ -13,6 +16,6 @@ export const handlePlayerSearch = async (playerName: string, apaClient: APAClien
 
   return {
     player,
-    teams: teams.map(apaTeamToTeam)
-  }
+    teams: teams.map(apaTeamToTeam),
+  };
 };

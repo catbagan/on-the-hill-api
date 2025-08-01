@@ -1,0 +1,15 @@
+meta {
+  name: Sign Out
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{host}}/api/auth/signout
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}

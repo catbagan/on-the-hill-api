@@ -1,5 +1,3 @@
-// Core domain types for database persistence
-
 export interface Player {
   id: string; // UUID for our system
   apaId: string; // APA's member ID
@@ -52,13 +50,8 @@ export interface PlayerMatch {
 
 export interface PlayerReport {
   id: string;
-  // playerId: string; // FK to Player
-  
-  // Overall stats
   overallWins: number;
   overallLosses: number;
-  
-  // Breakdowns
   bySession: Record<string, { wins: number; losses: number }>;
   headToHead: Record<string, { wins: number; losses: number }>;
   byPosition: Record<number, { wins: number; losses: number }>;
@@ -66,16 +59,14 @@ export interface PlayerReport {
   scoreDistribution: Record<string, number>; // "3-0", "2-1", etc.
   bySkillDifference: Record<number, { wins: number; losses: number }>;
   byOpponentSkill: Record<number, { wins: number; losses: number }>;
+  byMySkill: Record<number, { wins: number; losses: number }>;
   byInnings: Record<string, { wins: number; losses: number }>; // "0-10", "11-20", "21-30", "30+"
   byTeamSituation: Record<string, { wins: number; losses: number }>; // "team_winning", "team_tied", "team_losing"
-  
-  // Report metadata
   totalMatches: number;
   totalTeams: number;
   generatedAt: Date;
 }
 
-// Skeleton mapping functions
 export function apaPlayerToPlayer(apaPlayer: any): Player {
   const aliases = apaPlayer.aliases || [];
   let memberNumber = "";
@@ -146,15 +137,14 @@ export function apaMatchToMatch(apaMatch: any): Match {
 export function apaMatchToPlayerMatches(apaMatch: any): Array<PlayerMatch> {
   const results = apaMatch.results;
   const homeMatchScores = results.find(
-    (r: any) => r.homeAway === "HOME"
+    (r: any) => r.homeAway === "HOME",
   )?.scores;
   const awayMatchScores = results.find(
-    (r: any) => r.homeAway === "AWAY"
+    (r: any) => r.homeAway === "AWAY",
   )?.scores;
 
   if (!homeMatchScores) {
-    console.log(`No home match scores for match ${apaMatch.id}`);
-    return []
+    return [];
   }
 
   const matches: Array<PlayerMatch> = [];
@@ -163,13 +153,14 @@ export function apaMatchToPlayerMatches(apaMatch: any): Array<PlayerMatch> {
     const matchOrder = homeMatchScore.matchPositionNumber;
 
     const awayMatchScore = awayMatchScores.find(
-      (s: any) => s.matchPositionNumber === matchOrder
+      (s: any) => s.matchPositionNumber === matchOrder,
     );
 
     const homePlayerStats: PlayerMatchStats = {
       id: homeMatchScore.player?.id,
       name: homeMatchScore.player?.displayName,
-      skillLevel: homeMatchScore.skillLevel === 0 ? 3 : homeMatchScore.skillLevel,
+      skillLevel:
+        homeMatchScore.skillLevel === 0 ? 3 : homeMatchScore.skillLevel,
       score: homeMatchScore.eightBallMatchPointsEarned,
       innings: homeMatchScore.innings,
       defensiveShots: homeMatchScore.defensiveShots,
@@ -179,7 +170,8 @@ export function apaMatchToPlayerMatches(apaMatch: any): Array<PlayerMatch> {
     const awayPlayerStats: PlayerMatchStats = {
       id: awayMatchScore.player?.id,
       name: awayMatchScore.player?.displayName,
-      skillLevel: awayMatchScore.skillLevel === 0 ? 3 : awayMatchScore.skillLevel,
+      skillLevel:
+        awayMatchScore.skillLevel === 0 ? 3 : awayMatchScore.skillLevel,
       score: awayMatchScore.eightBallMatchPointsEarned,
       innings: awayMatchScore.innings,
       defensiveShots: awayMatchScore.defensiveShots,
@@ -195,7 +187,7 @@ export function apaMatchToPlayerMatches(apaMatch: any): Array<PlayerMatch> {
       homePlayerStats,
     };
 
-    matches.push(match)
+    matches.push(match);
   }
 
   return matches.sort((a, b) => a.matchOrder - b.matchOrder);
