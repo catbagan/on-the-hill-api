@@ -72,6 +72,22 @@ app.onError((err, c) => {
   );
 });
 
+app.get("/", (c) => {
+  return c.html(`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On The Hill API</title>
+</head>
+<body>
+    <h1>On The Hill API</h1>
+</body>
+</html>
+  `);
+});
+
 app.get("/health", (c) => {
   return c.json({
     status: "healthy",
