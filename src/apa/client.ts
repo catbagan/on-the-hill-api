@@ -1,6 +1,7 @@
 import type {
   AliasResponse,
   AuthorizeResponse,
+  GraphQLError,
   GraphQLResponse,
   LoginResponse,
   Match,
@@ -19,6 +20,13 @@ export class APAClient {
 
   private currentAuthToken: string | null = null;
   private deviceRefreshToken: string | null = null;
+
+  private isTokenExpiredError(error: GraphQLError): boolean {
+    return (
+      error.message === "Login session has expired" ||
+      error.extensions?.code === "TOKEN_EXPIRED"
+    );
+  }
 
   constructor(username: string, password: string) {
     this.username = username;
@@ -193,6 +201,20 @@ export class APAClient {
 
     if (data[0].errors) {
       console.error("Token generation errors:", data[0].errors);
+
+      // Check if refresh token is also expired
+      const isTokenExpired = data[0].errors.some((error) =>
+        this.isTokenExpiredError(error),
+      );
+
+      if (isTokenExpired) {
+        console.log("Refresh token expired, need to re-login");
+        // Clear tokens to force re-login
+        this.currentAuthToken = null;
+        this.deviceRefreshToken = null;
+        throw new Error("Refresh token expired");
+      }
+
       throw new Error(`Token generation error: ${data[0].errors[0].message}`);
     }
 
@@ -250,6 +272,7 @@ export class APAClient {
     query: string,
     variables: any,
     operationName?: string,
+    retryCount: number = 0,
   ): Promise<T> {
     const headers = await this.getAuthHeaders();
 
@@ -272,6 +295,39 @@ export class APAClient {
 
     if (data[0].errors) {
       console.error("GraphQL errors:", data[0].errors);
+
+      // Check if this is a token expiration error
+      const isTokenExpired = data[0].errors.some((error) =>
+        this.isTokenExpiredError(error),
+      );
+
+      if (isTokenExpired && retryCount === 0) {
+        console.log("Token expired, attempting to re-login...");
+
+        // Clear current tokens
+        this.currentAuthToken = null;
+        this.deviceRefreshToken = null;
+
+        // Re-login
+        try {
+          await this.login(this.username, this.password);
+          console.log("Re-login successful, retrying request...");
+
+          // Retry the request once
+          return this.makeGraphQLRequest(
+            query,
+            variables,
+            operationName,
+            retryCount + 1,
+          );
+        } catch (loginError) {
+          console.error("Re-login failed:", loginError);
+          throw new Error(
+            `Re-login failed: ${loginError instanceof Error ? loginError.message : "Unknown error"}`,
+          );
+        }
+      }
+
       throw new Error(`GraphQL error: ${data[0].errors[0].message}`);
     }
 

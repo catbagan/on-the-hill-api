@@ -223,6 +223,11 @@ export interface GraphQLError {
   message: string;
   locations?: Array<{ line: number; column: number }>;
   path?: string[];
+  extensions?: {
+    code?: string;
+    serviceName?: string;
+    exception?: any;
+  };
 }
 
 export interface TokenResponse {
