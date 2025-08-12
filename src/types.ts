@@ -67,7 +67,11 @@ export interface PlayerReport {
   generatedAt: Date;
 }
 
-export function apaPlayerToPlayer(apaPlayer: any): Player {
+export function apaPlayerToPlayer(apaPlayer: any): Player | null {
+  if (!apaPlayer) {
+    return null;
+  }
+  
   const aliases = apaPlayer.aliases || [];
   let memberNumber = "";
   if (aliases.length === 1) {

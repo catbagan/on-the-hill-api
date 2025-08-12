@@ -8,6 +8,8 @@ import {
   type PlayerReport,
   type TeamSeason,
 } from "./types";
+import { writeFileSync, mkdirSync } from "fs";
+import { join } from "path";
 
 export function generateReport(
   teams: TeamSeason[],
@@ -192,6 +194,137 @@ export function generateReport(
   };
 }
 
+function writeReportToCSV(report: PlayerReport, playerName: string): void {
+  // Create reports directory if it doesn't exist
+  const reportsDir = join(process.cwd(), "reports");
+  try {
+    mkdirSync(reportsDir, { recursive: true });
+  } catch (error) {
+    // Directory might already exist, that's fine
+  }
+
+  const filename = `${playerName.replace(/[^a-zA-Z0-9]/g, '_')}_report.csv`;
+  const filepath = join(reportsDir, filename);
+
+  const csvLines: string[] = [];
+  
+  // Overall Stats
+  csvLines.push("Overall Statistics");
+  csvLines.push("Wins,Losses,Win Percentage,Total Matches");
+  const winPercentage = report.totalMatches > 0 ? ((report.overallWins / report.totalMatches) * 100).toFixed(1) : "0.0";
+  csvLines.push(`${report.overallWins},${report.overallLosses},${winPercentage}%,${report.totalMatches}`);
+  csvLines.push(""); // Empty line for spacing
+
+  // By Session
+  csvLines.push("Performance by Session");
+  csvLines.push("Session,Wins,Losses,Win Percentage");
+  Object.entries(report.bySession).forEach(([session, stats]) => {
+    const total = stats.wins + stats.losses;
+    const winPct = total > 0 ? ((stats.wins / total) * 100).toFixed(1) : "0.0";
+    csvLines.push(`"${session}",${stats.wins},${stats.losses},${winPct}%`);
+  });
+  csvLines.push("");
+
+  // Head to Head
+  csvLines.push("Head to Head Records");
+  csvLines.push("Opponent,Wins,Losses,Win Percentage");
+  Object.entries(report.headToHead).forEach(([opponent, stats]) => {
+    const total = stats.wins + stats.losses;
+    const winPct = total > 0 ? ((stats.wins / total) * 100).toFixed(1) : "0.0";
+    csvLines.push(`"${opponent}",${stats.wins},${stats.losses},${winPct}%`);
+  });
+  csvLines.push("");
+
+  // By Position
+  csvLines.push("Performance by Match Position");
+  csvLines.push("Position,Wins,Losses,Win Percentage");
+  Object.entries(report.byPosition).forEach(([position, stats]) => {
+    const total = stats.wins + stats.losses;
+    const winPct = total > 0 ? ((stats.wins / total) * 100).toFixed(1) : "0.0";
+    csvLines.push(`Position ${position},${stats.wins},${stats.losses},${winPct}%`);
+  });
+  csvLines.push("");
+
+  // By Location
+  csvLines.push("Performance by Location");
+  csvLines.push("Location,Wins,Losses,Win Percentage");
+  Object.entries(report.byLocation).forEach(([location, stats]) => {
+    const total = stats.wins + stats.losses;
+    const winPct = total > 0 ? ((stats.wins / total) * 100).toFixed(1) : "0.0";
+    csvLines.push(`"${location}",${stats.wins},${stats.losses},${winPct}%`);
+  });
+  csvLines.push("");
+
+  // Score Distribution
+  csvLines.push("Score Distribution");
+  csvLines.push("Score,Count");
+  Object.entries(report.scoreDistribution).forEach(([score, count]) => {
+    csvLines.push(`"${score}",${count}`);
+  });
+  csvLines.push("");
+
+  // By Skill Difference
+  csvLines.push("Performance by Skill Difference (Your Skill - Opponent Skill)");
+  csvLines.push("Skill Difference,Wins,Losses,Win Percentage");
+  Object.entries(report.bySkillDifference).forEach(([diff, stats]) => {
+    const total = stats.wins + stats.losses;
+    const winPct = total > 0 ? ((stats.wins / total) * 100).toFixed(1) : "0.0";
+    csvLines.push(`${diff},${stats.wins},${stats.losses},${winPct}%`);
+  });
+  csvLines.push("");
+
+  // By Opponent Skill
+  csvLines.push("Performance by Opponent Skill Level");
+  csvLines.push("Opponent Skill Level,Wins,Losses,Win Percentage");
+  Object.entries(report.byOpponentSkill).forEach(([skill, stats]) => {
+    const total = stats.wins + stats.losses;
+    const winPct = total > 0 ? ((stats.wins / total) * 100).toFixed(1) : "0.0";
+    csvLines.push(`Skill ${skill},${stats.wins},${stats.losses},${winPct}%`);
+  });
+  csvLines.push("");
+
+  // By My Skill
+  csvLines.push("Performance by Your Skill Level");
+  csvLines.push("Your Skill Level,Wins,Losses,Win Percentage");
+  Object.entries(report.byMySkill).forEach(([skill, stats]) => {
+    const total = stats.wins + stats.losses;
+    const winPct = total > 0 ? ((stats.wins / total) * 100).toFixed(1) : "0.0";
+    csvLines.push(`Skill ${skill},${stats.wins},${stats.losses},${winPct}%`);
+  });
+  csvLines.push("");
+
+  // By Innings
+  csvLines.push("Performance by Innings Played");
+  csvLines.push("Innings Range,Wins,Losses,Win Percentage");
+  Object.entries(report.byInnings).forEach(([innings, stats]) => {
+    const total = stats.wins + stats.losses;
+    const winPct = total > 0 ? ((stats.wins / total) * 100).toFixed(1) : "0.0";
+    csvLines.push(`"${innings}",${stats.wins},${stats.losses},${winPct}%`);
+  });
+  csvLines.push("");
+
+  // By Team Situation
+  csvLines.push("Performance by Team Situation");
+  csvLines.push("Team Situation,Wins,Losses,Win Percentage");
+  Object.entries(report.byTeamSituation).forEach(([situation, stats]) => {
+    const total = stats.wins + stats.losses;
+    const winPct = total > 0 ? ((stats.wins / total) * 100).toFixed(1) : "0.0";
+    const situationName = situation === "team_winning" ? "Team Winning" : 
+                         situation === "team_losing" ? "Team Losing" : "Team Tied";
+    csvLines.push(`"${situationName}",${stats.wins},${stats.losses},${winPct}%`);
+  });
+  csvLines.push("");
+
+  // Report metadata
+  csvLines.push("Report Information");
+  csvLines.push("Generated At,Total Teams");
+  csvLines.push(`${report.generatedAt.toISOString()},${report.totalTeams}`);
+
+  // Write to file
+  writeFileSync(filepath, csvLines.join('\n'), 'utf8');
+  console.log(`Report written to: ${filepath}`);
+}
+
 export const handleReportGet = async (
   memberId: string,
   apaClient: APAClient,
@@ -241,6 +374,29 @@ export const handleReportGet = async (
   }
 
   const report = generateReport(teams, matchesByTeam, playerIdByTeam);
+
+  // Get player name for CSV file
+  let playerName = "Unknown_Player";
+  try {
+    // Try to get player name from the first team's player data
+    if (apaTeams.length > 0) {
+      const firstTeam = apaTeams[0];
+      if (firstTeam.nickName && firstTeam.nickName.trim()) {
+        playerName = firstTeam.nickName.trim();
+      } else {
+        // Fallback to member ID if no nickname
+        playerName = `Player_${memberId}`;
+      }
+    } else {
+      playerName = `Player_${memberId}`;
+    }
+  } catch (error) {
+    console.error("Error getting player name:", error);
+    playerName = `Player_${memberId}`;
+  }
+
+  // // Write report to CSV file
+  // writeReportToCSV(report, playerName);
 
   return {
     teams,

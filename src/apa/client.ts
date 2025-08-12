@@ -326,7 +326,7 @@ export class APAClient {
             `Re-login failed: ${loginError instanceof Error ? loginError.message : "Unknown error"}`,
           );
         }
-      }
+              }
 
       throw new Error(`GraphQL error: ${data[0].errors[0].message}`);
     }

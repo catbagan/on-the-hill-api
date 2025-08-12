@@ -2,6 +2,7 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
+import { createServerClient } from "@supabase/ssr";
 import { APAClient } from "./apa/client";
 import {
   authMiddleware,
@@ -17,6 +18,7 @@ function validateEnvironmentVariables() {
   const requiredEnvVars = [
     "SUPABASE_URL",
     "SUPABASE_ANON_KEY",
+    "SUPABASE_SERVICE_ROLE_KEY",
     "APA_USERNAME",
     "APA_PASSWORD",
   ];
@@ -99,18 +101,18 @@ app.get("/health", (c) => {
 app.post("/auth/signup", async (c) => {
   try {
     const body = await c.req.json();
-    const { username, password } = body;
+    const { email, password, givenName, familyName } = body;
 
-    if (!username || !password) {
+    if (!email || !password || !givenName || !familyName) {
       return c.json(
         {
-          error: "username and password are required",
+          error: "email, password, givenName, and familyName are required",
         },
         400,
       );
     }
 
-    if (username.length < 3 || password.length < 6) {
+    if (email.length < 3 || password.length < 6) {
       return c.json(
         {
           error:
@@ -123,8 +125,14 @@ app.post("/auth/signup", async (c) => {
     const supabase = getSupabase(c);
 
     const { data, error } = await supabase.auth.signUp({
-      email: `${username}@onthehill.app`,
+      email: email,
       password: password,
+      options: {
+        data: {
+          given_name: givenName,
+          family_name: familyName,
+        },
+      },
     });
 
     if (error) {
@@ -140,7 +148,9 @@ app.post("/auth/signup", async (c) => {
       message: "User registered successfully",
       user: {
         id: data.user?.id,
-        username: username,
+        email: email,
+        givenName: givenName,
+        familyName: familyName,
       },
     });
   } catch (error) {
@@ -152,12 +162,12 @@ app.post("/auth/signup", async (c) => {
 app.post("/auth/signin", async (c) => {
   try {
     const body = await c.req.json();
-    const { username, password } = body;
+    const { email, password } = body;
 
-    if (!username || !password) {
+    if (!email || !password) {
       return c.json(
         {
-          error: "username and password are required",
+          error: "email and password are required",
         },
         400,
       );
@@ -166,7 +176,7 @@ app.post("/auth/signin", async (c) => {
     const supabase = getSupabase(c);
 
     const { data, error } = await supabase.auth.signInWithPassword({
-      email: `${username}@onthehill.app`,
+      email: email,
       password: password,
     });
 
@@ -183,7 +193,9 @@ app.post("/auth/signin", async (c) => {
       message: "Signed in successfully",
       user: {
         id: data.user?.id,
-        username: username,
+        email: email,
+        givenName: data.session?.user.user_metadata.given_name,
+        familyName: data.user?.user_metadata.family_name,
       },
     });
   } catch (error) {
@@ -212,6 +224,92 @@ app.post("/auth/signout", async (c) => {
     });
   } catch (error) {
     console.error("Signout error:", error);
+    return c.json({ error: "Internal server error" }, 500);
+  }
+});
+
+app.post("/auth/delete", authMiddleware(), async (c) => {
+  try {
+    const supabase = getSupabase(c);
+    
+    // Get the current user
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    
+    if (userError || !user) {
+      return c.json(
+        {
+          error: "User not found",
+        },
+        404,
+      );
+    }
+
+    // Create a service role client for admin operations
+    const supabaseAdmin = createServerClient(
+      process.env.SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!,
+      {
+        cookies: {
+          getAll() {
+            return [];
+          },
+          setAll() {
+            // No-op for server-side operations
+          },
+        },
+      }
+    );
+
+    // Delete the user account using the service role client
+    const { error: deleteError } = await supabaseAdmin.auth.admin.deleteUser(user.id);
+
+    if (deleteError) {
+      console.error("Delete account error:", deleteError);
+      return c.json(
+        {
+          error: "Failed to delete account. Please contact support.",
+        },
+        500,
+      );
+    }
+
+    return c.json({
+      message: "Account deleted successfully",
+    });
+  } catch (error) {
+    console.error("Delete account error:", error);
+    return c.json({ error: "Internal server error" }, 500);
+  }
+});
+
+app.get("/auth/account", authMiddleware(), async (c) => {
+  try {
+    const supabase = getSupabase(c);
+    
+    // Get the current user
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    
+    if (userError || !user) {
+      return c.json(
+        {
+          error: "User not found",
+        },
+        404,
+      );
+    }
+
+    return c.json({
+      user: {
+        id: user.id,
+        email: user.email,
+        givenName: user.user_metadata?.given_name,
+        familyName: user.user_metadata?.family_name,
+        createdAt: user.created_at,
+        updatedAt: user.updated_at,
+      },
+    });
+  } catch (error) {
+    console.error("Get account error:", error);
     return c.json({ error: "Internal server error" }, 500);
   }
 });
