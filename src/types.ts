@@ -48,6 +48,14 @@ export interface PlayerMatch {
   homePlayerStats: PlayerMatchStats;
 }
 
+export enum Trending {
+  IMPROVING = "IMPROVING",
+  DECLINING = "DECLINING",
+  STABLE = "STABLE",
+  HOT = "HOT", // On a winning streak
+  COLD = "COLD", // On a losing streak
+}
+
 export interface PlayerReport {
   id: string;
   overallWins: number;
@@ -65,6 +73,14 @@ export interface PlayerReport {
   totalMatches: number;
   totalTeams: number;
   generatedAt: Date;
+  // Trending metrics
+  currentStreak: number; // positive for wins, negative for losses
+  longestWinStreak: { count: number; season: string };
+  longestLossStreak: { count: number; season: string };
+  last3Matches: { wins: number; losses: number };
+  last5Matches: { wins: number; losses: number };
+  last10Matches: { wins: number; losses: number };
+  trending: Trending;
 }
 
 export function apaPlayerToPlayer(apaPlayer: any): Player | null {

@@ -1,4 +1,5 @@
 import type { APAClient } from "./apa/client";
+import { sortTeamsBySeasonDesc } from "./helpers";
 import {
   apaMatchToMatch,
   apaMatchToPlayerMatches,
@@ -7,9 +8,117 @@ import {
   type PlayerMatch,
   type PlayerReport,
   type TeamSeason,
+  Trending,
 } from "./types";
 import { writeFileSync, mkdirSync } from "fs";
 import { join } from "path";
+
+function calculateTrendingMetrics(matchResults: Array<{ isWin: boolean; date: Date; season: string }>) {
+  if (matchResults.length === 0) {
+    return {
+      currentStreak: 0,
+      longestWinStreak: { count: 0, season: "" },
+      longestLossStreak: { count: 0, season: "" },
+      last3Matches: { wins: 0, losses: 0 },
+      last5Matches: { wins: 0, losses: 0 },
+      last10Matches: { wins: 0, losses: 0 },
+      trending: Trending.STABLE,
+    };
+  }
+
+  // Calculate current streak
+  let currentStreak = 0;
+  for (let i = matchResults.length - 1; i >= 0; i--) {
+    if (matchResults[i].isWin && currentStreak >= 0) {
+      currentStreak++;
+    } else if (!matchResults[i].isWin && currentStreak <= 0) {
+      currentStreak--;
+    } else {
+      break;
+    }
+  }
+
+  // Calculate longest streaks by season
+  let longestWinStreak = { count: 0, season: "" };
+  let longestLossStreak = { count: 0, season: "" };
+  let currentWinStreak = 0;
+  let currentLossStreak = 0;
+  let currentSeason = "";
+
+  for (const result of matchResults) {
+    if (result.season !== currentSeason) {
+      currentSeason = result.season;
+      currentWinStreak = 0;
+      currentLossStreak = 0;
+    }
+
+    if (result.isWin) {
+      currentWinStreak++;
+      currentLossStreak = 0;
+      if (currentWinStreak > longestWinStreak.count) {
+        longestWinStreak = { count: currentWinStreak, season: result.season };
+      }
+    } else {
+      currentLossStreak++;
+      currentWinStreak = 0;
+      if (currentLossStreak > longestLossStreak.count) {
+        longestLossStreak = { count: currentLossStreak, season: result.season };
+      }
+    }
+  }
+
+  // Calculate last N matches
+  const last3Matches = { wins: 0, losses: 0 };
+  const last5Matches = { wins: 0, losses: 0 };
+  const last10Matches = { wins: 0, losses: 0 };
+
+  for (let i = Math.max(0, matchResults.length - 10); i < matchResults.length; i++) {
+    const result = matchResults[i];
+    if (i >= matchResults.length - 3) {
+      if (result.isWin) last3Matches.wins++;
+      else last3Matches.losses++;
+    }
+    if (i >= matchResults.length - 5) {
+      if (result.isWin) last5Matches.wins++;
+      else last5Matches.losses++;
+    }
+    if (result.isWin) last10Matches.wins++;
+    else last10Matches.losses++;
+  }
+
+  // Determine trending
+  let trending = Trending.STABLE;
+  
+  if (currentStreak >= 3) {
+    trending = Trending.HOT;
+  } else if (currentStreak <= -3) {
+    trending = Trending.COLD;
+  } else if (matchResults.length >= 6) {
+    const recent3 = matchResults.slice(-3);
+    const older3 = matchResults.slice(-6, -3);
+    
+    if (older3.length >= 3) {
+      const recentWinRate = recent3.filter(r => r.isWin).length / 3;
+      const olderWinRate = older3.filter(r => r.isWin).length / 3;
+      
+      if (recentWinRate > olderWinRate + 0.2) {
+        trending = Trending.IMPROVING;
+      } else if (recentWinRate < olderWinRate - 0.2) {
+        trending = Trending.DECLINING;
+      }
+    }
+  }
+
+  return {
+    currentStreak,
+    longestWinStreak,
+    longestLossStreak,
+    last3Matches,
+    last5Matches,
+    last10Matches,
+    trending,
+  };
+}
 
 export function generateReport(
   teams: TeamSeason[],
@@ -35,6 +144,13 @@ export function generateReport(
   };
 
   let totalMatches = 0;
+  
+  // Collect all match results in chronological order for trending analysis
+  const allMatchResults: Array<{
+    isWin: boolean;
+    date: Date;
+    season: string;
+  }> = [];
 
   for (const team of teams) {
     const teamMatches = matchesByTeam[team.id] || [];
@@ -76,6 +192,13 @@ export function generateReport(
 
         if (isWin) stats.overallWins++;
         if (isLoss) stats.overallLosses++;
+
+        // Collect match result for trending analysis
+        allMatchResults.push({
+          isWin,
+          date: match.date,
+          season: `${team.season} ${team.seasonYear}`,
+        });
 
         const sessionKey = `${team.season} ${team.seasonYear}`;
         if (!stats.bySession[sessionKey]) {
@@ -174,6 +297,12 @@ export function generateReport(
     }
   }
 
+  // Sort match results by date (oldest first) for trending analysis
+  allMatchResults.sort((a, b) => a.date.getTime() - b.date.getTime());
+
+  // Calculate trending metrics
+  const trendingMetrics = calculateTrendingMetrics(allMatchResults);
+
   return {
     id: crypto.randomUUID(),
     overallWins: stats.overallWins,
@@ -191,6 +320,7 @@ export function generateReport(
     totalMatches,
     totalTeams: teams.length,
     generatedAt: new Date(),
+    ...trendingMetrics,
   };
 }
 
@@ -330,7 +460,7 @@ export const handleReportGet = async (
   apaClient: APAClient,
 ): Promise<any> => {
   const apaTeams = await apaClient.getTeamsForPlayer(memberId);
-  const teams = apaTeams.map(apaTeamToTeam);
+  const teams = sortTeamsBySeasonDesc(apaTeams.map(apaTeamToTeam));
 
   const playerIdByTeam: Record<string, string> = {};
   for (const t of apaTeams) {

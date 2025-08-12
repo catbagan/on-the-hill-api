@@ -1,4 +1,5 @@
 import type { APAClient } from "./apa/client";
+import { sortTeamsBySeasonDesc } from "./helpers";
 import { apaPlayerToPlayer, apaTeamToTeam } from "./types";
 
 export const handlePlayerSearch = async (
@@ -16,6 +17,6 @@ export const handlePlayerSearch = async (
 
   return {
     player,
-    teams: teams.map(apaTeamToTeam),
+    teams: sortTeamsBySeasonDesc(teams.map(apaTeamToTeam)),
   };
 };
