@@ -1,11 +1,11 @@
 meta {
-  name: Report Get
+  name: Wrapped Season Get
   type: http
-  seq: 6
+  seq: 9
 }
 
 post {
-  url: {{host}}/api/report/get
+  url: {{host}}/api/wrapped/season/get
   body: json
   auth: none
 }
@@ -13,6 +13,6 @@ post {
 body:json {
   {
     "memberId": "{{test_member_id}}",
-    "seasons": ["Fall 2025"]
+    "season": "Fall 2025"
   }
 }

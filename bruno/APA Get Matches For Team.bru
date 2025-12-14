@@ -1,0 +1,43 @@
+meta {
+  name: APA Get Matches For Team
+  type: http
+  seq: 15
+}
+
+post {
+  url: https://gql.poolplayers.com/graphql
+  body: json
+  auth: none
+}
+
+headers {
+  accept: */*
+  accept-language: en-US,en;q=0.9
+  apollographql-client-name: MemberServices
+  apollographql-client-version: 3.18.37-3511
+  authorization: {{apa_access_token}}
+  content-type: application/json
+  priority: u=1, i
+  sec-ch-ua: "Not)A;Brand";v="8", "Chromium";v="138"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "macOS"
+  sec-fetch-dest: empty
+  sec-fetch-mode: cors
+  sec-fetch-site: same-site
+  referer: https://league.poolplayers.com/
+  user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+  dnt: 1
+  origin: https://league.poolplayers.com/
+}
+
+body:json {
+  [
+    {
+      "operationName": "teamSchedule",
+      "variables": {
+        "id": {{test_team_id}}
+      },
+      "query": "query teamSchedule($id: Int!) {\n  team(id: $id) {\n    id\n    sessionBonusPoints\n    sessionPoints\n    sessionTotalPoints\n    division {\n      id\n      isTournament\n      __typename\n    }\n    matches(unscheduled: true) {\n      id\n      week\n      type\n      startTime\n      isBye\n      status\n      scoresheet\n      isMine\n      isPaid\n      isScored\n      isFinalized\n      isPlayoff\n      description\n      location {\n        id\n        name\n        __typename\n      }\n      home {\n        id\n        name\n        number\n        isMine\n        __typename\n      }\n      away {\n        id\n        name\n        number\n        isMine\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+    }
+  ]
+}

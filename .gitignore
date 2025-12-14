@@ -20,3 +20,6 @@ build/
 
 # OS files
 Thumbs.db
+
+# Bruno environment files (contain sensitive data)
+bruno/environments/*.bru

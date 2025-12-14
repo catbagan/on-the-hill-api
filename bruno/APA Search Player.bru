@@ -1,0 +1,43 @@
+meta {
+  name: APA Search Player
+  type: http
+  seq: 13
+}
+
+post {
+  url: https://gql.poolplayers.com/graphql
+  body: json
+  auth: none
+}
+
+headers {
+  accept: */*
+  accept-language: en-US,en;q=0.9
+  apollographql-client-name: MemberServices
+  apollographql-client-version: 3.18.37-3511
+  authorization: {{apa_access_token}}
+  content-type: application/json
+  priority: u=1, i
+  sec-ch-ua: "Not)A;Brand";v="8", "Chromium";v="138"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "macOS"
+  sec-fetch-dest: empty
+  sec-fetch-mode: cors
+  sec-fetch-site: same-site
+  referer: https://league.poolplayers.com/
+  user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+  dnt: 1
+  origin: https://league.poolplayers.com/
+}
+
+body:json {
+  [
+    {
+      "operationName": "Search",
+      "variables": {
+        "query": "{{test_player_name}}"
+      },
+      "query": "query Search($query: String!) {\n  search(query: $query) {\n    suggestions\n    hits {\n      __typename\n      ... on Team {\n        id\n        name\n        number\n        session {\n          id\n          name\n          __typename\n        }\n        division {\n          id\n          name\n          type\n          format\n          __typename\n        }\n        league {\n          id\n          name\n          slug\n          __typename\n        }\n        __typename\n      }\n      ... on Member {\n        id\n        firstName\n        lastName\n        city\n        aliases {\n          id\n          nickname\n          memberNumber\n          __typename\n        }\n        stateProvince {\n          id\n          name\n          __typename\n        }\n        __typename\n      }\n      ... on Division {\n        id\n        name\n        number\n        type\n        format\n        isMine\n        session {\n          id\n          name\n          __typename\n        }\n        league {\n          id\n          name\n          slug\n          __typename\n        }\n        __typename\n      }\n      ... on League {\n        id\n        slug\n        name\n        metroArea\n        contacts(role: LO, status: ACTIVE) {\n          displayName\n          __typename\n        }\n        __typename\n      }\n      ... on HostLocation {\n        id\n        name\n        league {\n          id\n          name\n          __typename\n        }\n        __typename\n      }\n    }\n    __typename\n  }\n}"
+    }
+  ]
+}

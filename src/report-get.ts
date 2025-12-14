@@ -458,9 +458,40 @@ function writeReportToCSV(report: PlayerReport, playerName: string): void {
 export const handleReportGet = async (
   memberId: string,
   apaClient: APAClient,
+  seasons?: string[], // Optional array of seasons like ["Spring 2025", "Fall 2025"]
 ): Promise<any> => {
   const apaTeams = await apaClient.getTeamsForPlayer(memberId);
-  const teams = sortTeamsBySeasonDesc(apaTeams.map(apaTeamToTeam));
+  let teams = sortTeamsBySeasonDesc(apaTeams.map(apaTeamToTeam));
+
+  // Filter by seasons if provided
+  if (seasons && seasons.length > 0) {
+    // Parse season strings into {season, seasonYear} objects
+    const seasonFilters = seasons.map((seasonStr) => {
+      // Parse "Spring 2025" format
+      const match = seasonStr.match(/(\w+)\s+(\d+)/);
+      if (match) {
+        return {
+          season: match[1],
+          seasonYear: parseInt(match[2], 10),
+        };
+      }
+      return null;
+    }).filter((s): s is { season: string; seasonYear: number } => s !== null);
+
+    // Filter teams to only include matching seasons
+    teams = teams.filter((team) =>
+      seasonFilters.some(
+        (filter) =>
+          team.season === filter.season && team.seasonYear === filter.seasonYear,
+      ),
+    );
+
+    if (teams.length === 0) {
+      throw new Error(
+        `No teams found for the specified seasons: ${seasons.join(", ")}`,
+      );
+    }
+  }
 
   const playerIdByTeam: Record<string, string> = {};
   for (const t of apaTeams) {

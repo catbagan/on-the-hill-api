@@ -456,12 +456,19 @@ export class APAClient {
   }
 
   async getTeamsForPlayer(memberId: string): Promise<PlayerTeam[]> {
+    console.log(`[getTeamsForPlayer] Starting for memberId: ${memberId}`);
     const allTeams: PlayerTeam[] = [];
     let offset = 0;
     const limit = 10;
     let hasMoreTeams = true;
+    let iteration = 0;
+    let isFirstIteration = true;
 
     while (hasMoreTeams) {
+      iteration++;
+      console.log(
+        `[getTeamsForPlayer] Iteration ${iteration}: offset=${offset}, limit=${limit}`,
+      );
       const query = `query TeamStat($id: Int!, $limit: Int!, $offset: Int!) {
           alias(id: $id) {
             id
@@ -578,20 +585,60 @@ export class APAClient {
       const pastTeams = data.alias.pastTeams;
       const currentTeams = data.alias.currentTeams;
 
+      console.log(
+        `[getTeamsForPlayer] Iteration ${iteration} response: pastTeams=${pastTeams.length}, currentTeams=${currentTeams.length}`,
+      );
+
+      // Log past teams details
+      pastTeams.forEach((team) => {
+        const teamName = team.team?.name || "Unknown";
+        const season = team.session?.name || "Unknown";
+        const typename = team.__typename || "Unknown";
+        console.log(
+          `[getTeamsForPlayer] Past team: "${teamName}" - Season: ${season} - Type: ${typename}`,
+        );
+      });
+
       allTeams.push(...pastTeams);
 
-      if (pastTeams.length < limit) {
-        hasMoreTeams = false;
-      } else {
-        offset += limit;
+      // Add current teams only on the first iteration (they're fetched every time but only needed once)
+      if (isFirstIteration) {
+        console.log(
+          `[getTeamsForPlayer] First iteration: adding ${currentTeams.length} current teams`,
+        );
+        // Log current teams details
+        currentTeams.forEach((team) => {
+          const teamName = team.team?.name || "Unknown";
+          const season = team.session?.name || "Unknown";
+          const typename = team.__typename || "Unknown";
+          console.log(
+            `[getTeamsForPlayer] Current team: "${teamName}" - Season: ${season} - Type: ${typename}`,
+          );
+        });
+        allTeams.push(...currentTeams);
+        isFirstIteration = false;
       }
 
-      if (offset === 0) {
-        allTeams.push(...currentTeams);
+      if (pastTeams.length < limit) {
+        console.log(
+          `[getTeamsForPlayer] Iteration ${iteration}: pastTeams.length (${pastTeams.length}) < limit (${limit}), stopping pagination`,
+        );
+        hasMoreTeams = false;
+      } else {
+        console.log(
+          `[getTeamsForPlayer] Iteration ${iteration}: pastTeams.length (${pastTeams.length}) >= limit (${limit}), continuing pagination`,
+        );
+        offset += limit;
       }
     }
 
-    return allTeams.filter((t) => t.__typename === "EightBallPlayer");
+    const filteredTeams = allTeams.filter(
+      (t) => t.__typename === "EightBallPlayer",
+    );
+    console.log(
+      `[getTeamsForPlayer] Complete: total teams collected=${allTeams.length}, filtered to EightBallPlayer=${filteredTeams.length}`,
+    );
+    return filteredTeams;
   }
 
   async getMatchesForTeam(teamId: string): Promise<Match[]> {

@@ -1,0 +1,44 @@
+meta {
+  name: APA Get Match Details
+  type: http
+  seq: 16
+}
+
+post {
+  url: https://gql.poolplayers.com/graphql
+  body: json
+  auth: none
+}
+
+headers {
+  accept: */*
+  accept-language: en-US,en;q=0.9
+  apollographql-client-name: MemberServices
+  apollographql-client-version: 3.18.37-3511
+  authorization: {{apa_access_token}}
+  content-type: application/json
+  priority: u=1, i
+  sec-ch-ua: "Not)A;Brand";v="8", "Chromium";v="138"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "macOS"
+  sec-fetch-dest: empty
+  sec-fetch-mode: cors
+  sec-fetch-site: same-site
+  referer: https://league.poolplayers.com/
+  user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+  dnt: 1
+  origin: https://league.poolplayers.com/
+}
+
+body:json {
+  [
+    {
+      "operationName": "MatchPage",
+      "variables": {
+        "id": {{test_match_id}}
+      },
+      "query": "query MatchPage($id: Int!) {\n  match(id: $id) {\n    id\n    startTime\n    location {\n      id\n      name\n      __typename\n    }\n    home {\n      id\n      name\n      __typename\n    }\n    away {\n      id\n      name\n      __typename\n    }\n    results {\n      homeAway\n      matchesWon\n      matchesPlayed\n      points {\n        total\n        __typename\n      }\n      scores {\n        id\n        player {\n          id\n          displayName\n          __typename\n        }\n        matchPositionNumber\n        playerPosition\n        skillLevel\n        innings\n        defensiveShots\n        eightBallWins\n        eightOnBreak\n        eightBallBreakAndRun\n        nineBallPoints\n        nineOnSnap\n        nineBallBreakAndRun\n        nineBallMatchPointsEarned\n        mastersEightBallWins\n        mastersNineBallWins\n        winLoss\n        matchForfeited\n        doublesMatch\n        dateTimeStamp\n        teamSlot\n        eightBallMatchPointsEarned\n        incompleteMatch\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+    }
+  ]
+}
+

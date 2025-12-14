@@ -11,7 +11,11 @@ import {
 } from "./middleware/auth.middleware";
 import { handlePlayerSearch } from "./player-search";
 import { handleReportGet } from "./report-get";
-import { handleWrappedGet } from "./wrapped-get";
+import {
+  handleWrappedGet,
+  handleWrappedSeasonGet,
+  handleWrappedYearGet,
+} from "./wrapped-get";
 
 import "dotenv/config";
 
@@ -378,11 +382,45 @@ app.post("/report/get", authMiddleware(), async (c) => {
       );
     }
 
-    const report = await handleReportGet(body.memberId.trim(), apaClient);
+    // Validate seasons if provided
+    let seasons: string[] | undefined;
+    if (body.seasons !== undefined) {
+      if (!Array.isArray(body.seasons)) {
+        return c.json(
+          {
+            error: "seasons must be an array of strings (e.g., ['Spring 2025', 'Fall 2025'])",
+          },
+          400,
+        );
+      }
+      if (body.seasons.length > 0) {
+        const invalidSeasons = body.seasons.filter(
+          (s: any) => typeof s !== "string" || !s.match(/^\w+\s+\d+$/),
+        );
+        if (invalidSeasons.length > 0) {
+          return c.json(
+            {
+              error: `Invalid season format. Seasons must be in format 'Season Year' (e.g., 'Spring 2025'). Invalid: ${invalidSeasons.join(", ")}`,
+            },
+            400,
+          );
+        }
+        seasons = body.seasons;
+      }
+    }
+
+    const report = await handleReportGet(
+      body.memberId.trim(),
+      apaClient,
+      seasons,
+    );
 
     return c.json(report);
   } catch (error) {
     console.error("Report get error:", error);
+    if (error instanceof Error) {
+      return c.json({ error: error.message }, 400);
+    }
     return c.json({ error: "Internal server error" }, 500);
   }
 });
@@ -416,6 +454,123 @@ app.post("/wrapped/get", authMiddleware(), async (c) => {
     return c.json(wrapped);
   } catch (error) {
     console.error("Wrapped get error:", error);
+    if (error instanceof Error) {
+      return c.json({ error: error.message }, 400);
+    }
+    return c.json({ error: "Internal server error" }, 500);
+  }
+});
+
+app.post("/wrapped/season/get", authMiddleware(), async (c) => {
+  try {
+    const body = await c.req.json();
+    if (!body.memberId) {
+      return c.json(
+        {
+          error: "memberId is required in request body",
+        },
+        400,
+      );
+    }
+
+    if (!body.season) {
+      return c.json(
+        {
+          error: "season is required in request body (e.g., 'Fall 2025')",
+        },
+        400,
+      );
+    }
+
+    if (
+      typeof body.memberId !== "string" ||
+      body.memberId.trim().length === 0
+    ) {
+      return c.json(
+        {
+          error: "memberId must be a non-empty string",
+        },
+        400,
+      );
+    }
+
+    if (typeof body.season !== "string" || body.season.trim().length === 0) {
+      return c.json(
+        {
+          error: "season must be a non-empty string (e.g., 'Fall 2025')",
+        },
+        400,
+      );
+    }
+
+    const wrapped = await handleWrappedSeasonGet(
+      body.memberId.trim(),
+      apaClient,
+      body.season.trim(),
+    );
+
+    return c.json(wrapped);
+  } catch (error) {
+    console.error("Wrapped season get error:", error);
+    if (error instanceof Error) {
+      return c.json({ error: error.message }, 400);
+    }
+    return c.json({ error: "Internal server error" }, 500);
+  }
+});
+
+app.post("/wrapped/year/get", authMiddleware(), async (c) => {
+  try {
+    const body = await c.req.json();
+    if (!body.memberId) {
+      return c.json(
+        {
+          error: "memberId is required in request body",
+        },
+        400,
+      );
+    }
+
+    if (!body.year) {
+      return c.json(
+        {
+          error: "year is required in request body (e.g., 2025)",
+        },
+        400,
+      );
+    }
+
+    if (
+      typeof body.memberId !== "string" ||
+      body.memberId.trim().length === 0
+    ) {
+      return c.json(
+        {
+          error: "memberId must be a non-empty string",
+        },
+        400,
+      );
+    }
+
+    const year = typeof body.year === "number" ? body.year : parseInt(body.year, 10);
+    if (isNaN(year) || year < 2000 || year > 2100) {
+      return c.json(
+        {
+          error: "year must be a valid year (e.g., 2025)",
+        },
+        400,
+      );
+    }
+
+    const wrapped = await handleWrappedYearGet(
+      body.memberId.trim(),
+      apaClient,
+      year,
+    );
+
+    return c.json(wrapped);
+  } catch (error) {
+    console.error("Wrapped year get error:", error);
     if (error instanceof Error) {
       return c.json({ error: error.message }, 400);
     }

@@ -1,0 +1,45 @@
+meta {
+  name: APA Get Teams For Player
+  type: http
+  seq: 14
+}
+
+post {
+  url: https://gql.poolplayers.com/graphql
+  body: json
+  auth: none
+}
+
+headers {
+  accept: */*
+  accept-language: en-US,en;q=0.9
+  apollographql-client-name: MemberServices
+  apollographql-client-version: 3.18.37-3511
+  authorization: {{apa_access_token}}
+  content-type: application/json
+  priority: u=1, i
+  sec-ch-ua: "Not)A;Brand";v="8", "Chromium";v="138"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "macOS"
+  sec-fetch-dest: empty
+  sec-fetch-mode: cors
+  sec-fetch-site: same-site
+  referer: https://league.poolplayers.com/
+  user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+  dnt: 1
+  origin: https://league.poolplayers.com/
+}
+
+body:json {
+  [
+    {
+      "operationName": "TeamStat",
+      "variables": {
+        "id": {{test_member_id}},
+        "limit": 10,
+        "offset": 0
+      },
+      "query": "query TeamStat($id: Int!, $limit: Int!, $offset: Int!) {\n  alias(id: $id) {\n    id\n    pastTeams: players(current: false, active: null, limit: $limit, offset: $offset) {\n      id\n      ...EightBallTeam\n      ...NineBallTeam\n      ...MastersTeam\n      __typename\n    }\n    currentTeams: players(current: true, active: null) {\n      id\n      ...EightBallTeam\n      ...NineBallTeam\n      ...MastersTeam\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment NineBallTeam on NineBallPlayer {\n  id\n  isActive\n  role\n  rosterPosition\n  nickName\n  matchesPlayed\n  matchesWon\n  session {\n    id\n    name\n    __typename\n  }\n  skillLevel\n  rank\n  team {\n    id\n    name\n    division {\n      id\n      isTournament\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment EightBallTeam on EightBallPlayer {\n  id\n  isActive\n  role\n  rosterPosition\n  nickName\n  matchesPlayed\n  matchesWon\n  session {\n    id\n    name\n    __typename\n  }\n  skillLevel\n  rank\n  team {\n    id\n    name\n    division {\n      id\n      isTournament\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment MastersTeam on MastersPlayer {\n  id\n  isActive\n  role\n  rosterPosition\n  nickName\n  matchesPlayed\n  matchesWon\n  session {\n    id\n    name\n    __typename\n  }\n  team {\n    id\n    name\n    division {\n      id\n      isTournament\n      __typename\n    }\n    __typename\n  }\n  __typename\n}"
+    }
+  ]
+}
