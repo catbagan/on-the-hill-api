@@ -11,6 +11,7 @@ import {
 } from "./middleware/auth.middleware";
 import { handlePlayerSearch } from "./player-search";
 import { handleReportGet } from "./report-get";
+import { handleWrappedGet } from "./wrapped-get";
 
 import "dotenv/config";
 
@@ -386,12 +387,46 @@ app.post("/report/get", authMiddleware(), async (c) => {
   }
 });
 
+app.post("/wrapped/get", authMiddleware(), async (c) => {
+  try {
+    const body = await c.req.json();
+    if (!body.memberId) {
+      return c.json(
+        {
+          error: "memberId is required in request body",
+        },
+        400,
+      );
+    }
+
+    if (
+      typeof body.memberId !== "string" ||
+      body.memberId.trim().length === 0
+    ) {
+      return c.json(
+        {
+          error: "memberId must be a non-empty string",
+        },
+        400,
+      );
+    }
+
+    const wrapped = await handleWrappedGet(body.memberId.trim(), apaClient);
+
+    return c.json(wrapped);
+  } catch (error) {
+    console.error("Wrapped get error:", error);
+    if (error instanceof Error) {
+      return c.json({ error: error.message }, 400);
+    }
+    return c.json({ error: "Internal server error" }, 500);
+  }
+});
+
 const port = parseInt(process.env.PORT || "3000");
 console.log(`Server is running on port ${port}`);
-let hostname = "localhost";
-if (process.env.NODE_ENV === "production") {
-  hostname = "0.0.0.0";
-}
+// Use 0.0.0.0 to bind to both IPv4 and IPv6, allowing connections from both 127.0.0.1 and ::1
+let hostname = "0.0.0.0";
 
 serve({
   fetch: app.fetch,
