@@ -70,8 +70,8 @@ websiteApp.get("/privacy-policy", (c) => {
   }
 });
 
-// API app
-const app = new Hono().basePath("/api");
+// API app (routes will be mounted at /api)
+const app = new Hono();
 
 app.use("*", logger());
 app.use(
@@ -607,6 +607,7 @@ app.post("/wrapped/year/get", authMiddleware(), async (c) => {
 // Main app that routes to website or API
 const mainApp = new Hono();
 mainApp.route("/", websiteApp);
+// Mount API app at /api - basePath is already applied to routes
 mainApp.route("/api", app);
 
 const port = parseInt(process.env.PORT || "3000");
