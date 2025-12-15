@@ -874,11 +874,11 @@ export const handleWrappedGet = async (
     });
   }
   
-  // 2. Grinder - Won matches that went to 3 games (weight: 5)
+  // 2. Grinder - Won matches that went to 2-1 (weight: 5)
   const grinderMatches = allPlayerMatches.filter(
-    (m) => m.isWin && m.playerScore + m.opponentScore === 3,
+    (m) => m.isWin && m.playerScore === 2 && m.opponentScore === 1,
   );
-  if (grinderMatches.length >= 10) {
+  if (grinderMatches.length >= 5) {
     highlightsWithWeights.push({
       text: `Won ${grinderMatches.length} match${grinderMatches.length !== 1 ? "es" : ""} that went to hill vs hill`,
       weight: 5,
