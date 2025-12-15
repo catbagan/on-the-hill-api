@@ -3,6 +3,8 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { createServerClient } from "@supabase/ssr";
+import { readFileSync } from "fs";
+import { join } from "path";
 import { APAClient } from "./apa/client";
 import {
   authMiddleware,
@@ -45,6 +47,30 @@ const apaClient = new APAClient(
   process.env.APA_PASSWORD || "",
 );
 
+// Website app (serves static HTML pages)
+const websiteApp = new Hono();
+
+websiteApp.get("/", (c) => {
+  try {
+    const html = readFileSync(join(process.cwd(), "public/index.html"), "utf-8");
+    return c.html(html);
+  } catch (error) {
+    console.error("Error reading index.html:", error);
+    return c.html("<h1>Error loading page</h1>", 500);
+  }
+});
+
+websiteApp.get("/privacy-policy", (c) => {
+  try {
+    const html = readFileSync(join(process.cwd(), "public/privacy-policy.html"), "utf-8");
+    return c.html(html);
+  } catch (error) {
+    console.error("Error reading privacy-policy.html:", error);
+    return c.html("<h1>Error loading page</h1>", 500);
+  }
+});
+
+// API app
 const app = new Hono().basePath("/api");
 
 app.use("*", logger());
@@ -578,13 +604,18 @@ app.post("/wrapped/year/get", authMiddleware(), async (c) => {
   }
 });
 
+// Main app that routes to website or API
+const mainApp = new Hono();
+mainApp.route("/", websiteApp);
+mainApp.route("/api", app);
+
 const port = parseInt(process.env.PORT || "3000");
 console.log(`Server is running on port ${port}`);
 // Use 0.0.0.0 to bind to both IPv4 and IPv6, allowing connections from both 127.0.0.1 and ::1
 let hostname = "0.0.0.0";
 
 serve({
-  fetch: app.fetch,
+  fetch: mainApp.fetch,
   port,
   hostname,
 });
