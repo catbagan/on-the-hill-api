@@ -102,7 +102,6 @@ interface WrappedSlide5 {
 interface WrappedSlide6 {
   type: "summary";
   top3Highlights: string[];
-  funStat: string;
   shareableImageUrl: string; // placeholder for now
 }
 
@@ -350,7 +349,7 @@ function calculateArchetypeScores(
         name: "The Grinder",
         description: "Most matches that go to 3 games",
         score: grinderPercentage,
-        explanation: `${grinderMatches} out of ${matches.length} matches went to 3 games (2-1 or 1-2), representing ${Math.round(grinderPercentage)}% of your games. You fight hard and make every match competitive.`,
+        explanation: `${grinderMatches} out of ${matches.length} matches went to hill vs hill, representing ${Math.round(grinderPercentage)}% of your games. You fight hard and make every match competitive.`,
       });
     }
   }
@@ -858,65 +857,156 @@ export const handleWrappedGet = async (
   };
 
   // Slide 6: Summary
-  const top3Highlights: string[] = [];
+  // Collect all qualifying highlights with their priority weights
+  const highlightsWithWeights: Array<{ text: string; weight: number }> = [];
   
-  // Priority highlights (most impressive first)
-  if (longestWinStreak >= 3) {
-    top3Highlights.push(`Had a ${longestWinStreak}-game winning streak`);
-  }
-  if (endingSkill > startingSkill) {
-    top3Highlights.push(
-      `Improved from skill level ${startingSkill} to ${endingSkill}`,
+  // 1. Biggest Upset - Beat opponent with skill level at least 2 higher (weight: 6)
+  const upsetMatches = allPlayerMatches.filter(
+    (m) => m.isWin && m.skillDifference <= -2,
+  );
+  if (upsetMatches.length > 0) {
+    const biggestUpset = upsetMatches.reduce((max, m) => 
+      m.skillDifference < max.skillDifference ? m : max
     );
-  }
-  if (winPercentage >= 70 && totalGames >= 5) {
-    top3Highlights.push(`Won ${Math.round(winPercentage)}% of your matches`);
-  } else if (wins > 0) {
-    top3Highlights.push(`Won ${wins} match${wins !== 1 ? "es" : ""}`);
+    highlightsWithWeights.push({
+      text: `Beat a skill level ${biggestUpset.opponentSkill} opponent while you were skill level ${biggestUpset.playerSkill}`,
+      weight: 6,
+    });
   }
   
-  // Additional highlights if we need more
-  if (top3Highlights.length < 3) {
-    // Find best record against an opponent (if any with wins > losses)
-    const bestOpponentRecord = opponentRecordList
-      .filter((o) => o.totalMatches >= 1 && o.wins > o.losses)
-      .sort((a, b) => b.winPercentage - a.winPercentage)[0];
-    if (bestOpponentRecord && bestOpponentRecord.wins >= 2) {
-      top3Highlights.push(
-        `Beat ${bestOpponentRecord.opponentName} ${bestOpponentRecord.wins}-${bestOpponentRecord.losses}`,
-      );
+  // 2. Grinder - Won matches that went to 3 games (weight: 5)
+  const grinderMatches = allPlayerMatches.filter(
+    (m) => m.isWin && m.playerScore + m.opponentScore === 3,
+  );
+  if (grinderMatches.length >= 10) {
+    highlightsWithWeights.push({
+      text: `Won ${grinderMatches.length} match${grinderMatches.length !== 1 ? "es" : ""} that went to hill vs hill`,
+      weight: 5,
+    });
+  }
+  
+  // 3. Dominant Sweeps - Won matches 3-0 (weight: 4)
+  const sweepMatches = allPlayerMatches.filter(
+    (m) => m.isWin && m.playerScore === 3 && m.opponentScore === 0,
+  );
+  if (sweepMatches.length >= 5) {
+    highlightsWithWeights.push({
+      text: `Swept ${sweepMatches.length} match${sweepMatches.length !== 1 ? "es" : ""}`,
+      weight: 4,
+    });
+  }
+  
+  // 4. Skill Level Range - Beat opponents across skill range (weight: 3)
+  const wonMatches = allPlayerMatches.filter((m) => m.isWin);
+  if (wonMatches.length >= 3) {
+    const opponentSkills = wonMatches.map((m) => m.opponentSkill);
+    const minSkill = Math.min(...opponentSkills);
+    const maxSkill = Math.max(...opponentSkills);
+    if (maxSkill - minSkill >= 2) {
+      highlightsWithWeights.push({
+        text: `Beat opponents ranging from skill level ${minSkill} to ${maxSkill}`,
+        weight: 3,
+      });
     }
   }
-  if (top3Highlights.length < 3 && bestPosition.winPercentage === 100 && bestPosition.wins >= 2) {
-    top3Highlights.push(
-      `Perfect ${bestPosition.wins}-0 record at position ${bestPosition.position}`,
-    );
+  
+  // 5. Repeat Success - Beat same opponent multiple times (weight: 2)
+  const winsByOpponent = new Map<string, number>();
+  allPlayerMatches.forEach((m) => {
+    if (m.isWin) {
+      winsByOpponent.set(m.opponentName, (winsByOpponent.get(m.opponentName) || 0) + 1);
+    }
+  });
+  const repeatOpponent = Array.from(winsByOpponent.entries())
+    .filter(([_, wins]) => wins >= 2)
+    .sort((a, b) => b[1] - a[1])[0];
+  if (repeatOpponent) {
+    highlightsWithWeights.push({
+      text: `Beat ${repeatOpponent[0]} ${repeatOpponent[1]} time${repeatOpponent[1] !== 1 ? "s" : ""}`,
+      weight: 2,
+    });
   }
-  if (top3Highlights.length < 3 && bestLocations.length > 0) {
+  
+  // 6. Clutch Performer - Won matches when team was losing (weight: 1)
+  const clutchMatches = allPlayerMatches.filter(
+    (m) => m.isWin && m.teamSituation === "team_losing",
+  );
+  if (clutchMatches.length >= 5) {
+    highlightsWithWeights.push({
+      text: `Won ${clutchMatches.length} match${clutchMatches.length !== 1 ? "es" : ""} when your team was losing`,
+      weight: 1,
+    });
+  }
+  
+  // Additional highlights if we need more (weight: 0.5)
+  if (endingSkill > startingSkill) {
+    highlightsWithWeights.push({
+      text: `Improved from skill level ${startingSkill} to ${endingSkill}`,
+      weight: 0.5,
+    });
+  }
+  if (bestPosition.winPercentage === 100 && bestPosition.wins >= 2) {
+    highlightsWithWeights.push({
+      text: `Dominant ${bestPosition.wins}-0 record at position ${bestPosition.position}`,
+      weight: 0.5,
+    });
+  }
+  if (bestLocations.length > 0) {
     const bestLoc = bestLocations[0];
     if (bestLoc.winPercentage >= 80 && bestLoc.wins >= 3) {
-      top3Highlights.push(
-        `Dominant ${Math.round(bestLoc.winPercentage)}% win rate at ${bestLoc.location}`,
-      );
+      highlightsWithWeights.push({
+        text: `Dominant ${Math.round(bestLoc.winPercentage)}% win rate at ${bestLoc.location}`,
+        weight: 0.5,
+      });
     }
   }
-  if (top3Highlights.length < 3 && totalGames >= 10) {
-    top3Highlights.push(`Played ${totalGames} total games`);
-  }
-
+  
+  // Convert funStat to a highlight (weight: 0.5)
   const uniqueLocations = new Set(allPlayerMatches.map((m) => m.location)).size;
   const uniqueOpponents = new Set(
     allPlayerMatches.map((m) => m.opponentName),
   ).size;
-  const funStat =
-    uniqueLocations > 1
-      ? `Played at ${uniqueLocations} different locations`
-      : `Faced ${uniqueOpponents} different opponent${uniqueOpponents !== 1 ? "s" : ""}`;
+  if (uniqueLocations > 1) {
+    highlightsWithWeights.push({
+      text: `Played at ${uniqueLocations} different locations`,
+      weight: 0.5,
+    });
+  } else if (uniqueOpponents > 1) {
+    highlightsWithWeights.push({
+      text: `Faced ${uniqueOpponents} different opponents`,
+      weight: 0.5,
+    });
+  }
+
+  // Weighted random selection: select 3 highlights based on weights
+  const top3Highlights: string[] = [];
+  const remainingHighlights = [...highlightsWithWeights];
+  
+  for (let i = 0; i < 3 && remainingHighlights.length > 0; i++) {
+    // Calculate total weight
+    const totalWeight = remainingHighlights.reduce((sum, h) => sum + h.weight, 0);
+    
+    // Random number between 0 and totalWeight
+    let random = Math.random() * totalWeight;
+    
+    // Select highlight based on weighted probability
+    let selectedIndex = 0;
+    for (let j = 0; j < remainingHighlights.length; j++) {
+      random -= remainingHighlights[j].weight;
+      if (random <= 0) {
+        selectedIndex = j;
+        break;
+      }
+    }
+    
+    // Add selected highlight and remove from remaining
+    top3Highlights.push(remainingHighlights[selectedIndex].text);
+    remainingHighlights.splice(selectedIndex, 1);
+  }
 
   const slide6: WrappedSlide6 = {
     type: "summary",
-    top3Highlights: top3Highlights.slice(0, 3),
-    funStat,
+    top3Highlights,
     shareableImageUrl: "https://placeholder.com/wrapped-image", // placeholder
   };
 
@@ -966,4 +1056,5 @@ export const handleWrappedYearGet = async (
     );
   });
 };
+
 
