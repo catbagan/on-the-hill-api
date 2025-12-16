@@ -5,6 +5,7 @@ import { logger } from "hono/logger";
 import { createServerClient } from "@supabase/ssr";
 import { readFileSync } from "fs";
 import { join } from "path";
+import { randomUUID } from "crypto";
 import { APAClient } from "./apa/client";
 import {
   authMiddleware,
@@ -20,6 +21,105 @@ import {
 } from "./wrapped-get";
 
 import "dotenv/config";
+
+// Rate limiting: Simple in-memory store
+const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const RATE_LIMITS = {
+  "/api/wrapped/get": 10, // 10 requests per minute
+  "/api/wrapped/season/get": 10,
+  "/api/wrapped/year/get": 10,
+  "/api/report/get": 20, // 20 requests per minute
+  "/api/player/search": 30, // 30 requests per minute
+  "/api/analytics/track": 100, // 100 events per minute (analytics can be high volume)
+  default: 60, // 60 requests per minute for other endpoints
+};
+
+// Clean up expired rate limit entries every 5 minutes
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, value] of rateLimitStore.entries()) {
+    if (now > value.resetAt) {
+      rateLimitStore.delete(key);
+    }
+  }
+}, 5 * 60 * 1000);
+
+// Rate limiting middleware
+const rateLimitMiddleware = async (c: any, next: () => Promise<void>) => {
+  const path = c.req.path;
+  const ip = c.req.header("x-forwarded-for")?.split(",")[0] || 
+             c.req.header("x-real-ip") || 
+             "unknown";
+  const key = `${ip}:${path}`;
+  
+  const limit = RATE_LIMITS[path as keyof typeof RATE_LIMITS] || RATE_LIMITS.default;
+  const now = Date.now();
+  
+  const record = rateLimitStore.get(key);
+  
+  if (!record || now > record.resetAt) {
+    // New window
+    rateLimitStore.set(key, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });
+    await next();
+    return;
+  }
+  
+  if (record.count >= limit) {
+    return c.json(
+      { error: "Too many requests. Please try again later." },
+      429
+    );
+  }
+  
+  record.count++;
+  await next();
+};
+
+// Request timeout middleware (30 seconds)
+const timeoutMiddleware = async (c: any, next: () => Promise<void>) => {
+  const timeout = 30000; // 30 seconds
+  const timeoutId = setTimeout(() => {
+    if (!c.res.headersSent) {
+      c.res = new Response(
+        JSON.stringify({ error: "Request timeout" }),
+        { status: 504, headers: { "Content-Type": "application/json" } }
+      );
+    }
+  }, timeout);
+  
+  try {
+    await next();
+  } finally {
+    clearTimeout(timeoutId);
+  }
+};
+
+// Enhanced error logging
+function logError(err: Error, context: { endpoint?: string; userId?: string; memberId?: string; requestId?: string; [key: string]: any }) {
+  const logEntry = {
+    timestamp: new Date().toISOString(),
+    level: "ERROR",
+    error: {
+      message: err.message,
+      stack: process.env.NODE_ENV === "production" ? undefined : err.stack,
+      name: err.name,
+    },
+    context,
+  };
+  console.error(JSON.stringify(logEntry));
+}
+
+// Enhanced request logging
+function logRequest(event: string, context: { endpoint?: string; userId?: string; memberId?: string; requestId?: string; [key: string]: any }) {
+  const logEntry = {
+    timestamp: new Date().toISOString(),
+    level: "INFO",
+    event,
+    context,
+  };
+  console.log(JSON.stringify(logEntry));
+}
 
 function validateEnvironmentVariables() {
   const requiredEnvVars = [
@@ -74,6 +174,29 @@ websiteApp.get("/privacy-policy", (c) => {
 const app = new Hono();
 
 app.use("*", logger());
+
+// Security headers middleware
+app.use("*", async (c, next) => {
+  await next();
+  c.header("X-Content-Type-Options", "nosniff");
+  c.header("X-Frame-Options", "DENY");
+  c.header("X-XSS-Protection", "1; mode=block");
+  c.header("Referrer-Policy", "strict-origin-when-cross-origin");
+  if (process.env.NODE_ENV === "production") {
+    c.header("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+  }
+});
+
+// Request ID middleware for tracing
+app.use("*", async (c, next) => {
+  const requestId = randomUUID();
+  c.header("X-Request-ID", requestId);
+  c.set("requestId", requestId);
+  await next();
+});
+
+app.use("*", timeoutMiddleware);
+app.use("*", rateLimitMiddleware);
 app.use(
   "*",
   cors({
@@ -81,13 +204,21 @@ app.use(
       const nodeEnv = process.env.NODE_ENV || "development";
       const allowedOrigins =
         nodeEnv === "production"
-          ? ["https://your-frontend-domain.com"]
+          ? ["https://onthehill.app"]
           : ["http://localhost:3000", "http://localhost:5173"];
 
-      if (!origin || allowedOrigins.includes(origin)) {
+      // Allow requests with no origin (same-origin, Postman, etc.)
+      if (!origin) {
         return origin;
       }
-      return allowedOrigins[0];
+      
+      // Only allow explicitly listed origins
+      if (allowedOrigins.includes(origin)) {
+        return origin;
+      }
+      
+      // Reject unauthorized origins by returning null
+      return null;
     },
     credentials: true,
   }),
@@ -95,7 +226,18 @@ app.use(
 app.use("*", supabaseMiddleware());
 
 app.onError((err, c) => {
-  console.error("Unhandled error:", err);
+  const userId = c.get("userId") as string | undefined;
+  const requestId = c.get("requestId") as string | undefined;
+  const memberId = c.req.header("x-member-id") || undefined;
+  
+  logError(err, {
+    endpoint: c.req.path,
+    method: c.req.method,
+    userId,
+    memberId,
+    requestId,
+  });
+  
   const nodeEnv = process.env.NODE_ENV || "development";
   return c.json(
     {
@@ -122,11 +264,82 @@ app.get("/", (c) => {
 });
 
 app.get("/health", (c) => {
+  const memUsage = process.memoryUsage();
   return c.json({
     status: "healthy",
     timestamp: new Date().toISOString(),
     version: "0.0.1",
+    uptime: Math.floor(process.uptime()),
+    memory: {
+      heapUsed: Math.round(memUsage.heapUsed / 1024 / 1024), // MB
+      heapTotal: Math.round(memUsage.heapTotal / 1024 / 1024), // MB
+      rss: Math.round(memUsage.rss / 1024 / 1024), // MB
+    },
   });
+});
+
+// Analytics endpoint for frontend events
+app.post("/analytics/track", authMiddleware(), async (c) => {
+  const userId = c.get("userId");
+  const requestId = c.get("requestId") as string | undefined;
+  
+  try {
+    const body = await c.req.json();
+    
+    // Validate required fields
+    if (!body.event) {
+      return c.json(
+        {
+          error: "event is required (e.g., 'page_view', 'button_click', 'feature_used')",
+        },
+        400,
+      );
+    }
+
+    if (typeof body.event !== "string" || body.event.trim().length === 0) {
+      return c.json(
+        {
+          error: "event must be a non-empty string",
+        },
+        400,
+      );
+    }
+
+    // Extract event data
+    const eventName = body.event.trim();
+    const properties = body.properties || {};
+    const timestamp = body.timestamp || new Date().toISOString();
+
+    // Log analytics event
+    logRequest("analytics_event", {
+      endpoint: "/analytics/track",
+      userId,
+      requestId,
+      event: eventName,
+      properties,
+      timestamp,
+    });
+
+    return c.json({
+      success: true,
+      event: eventName,
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      logError(error, {
+        endpoint: "/analytics/track",
+        userId,
+        requestId,
+      });
+      return c.json({ error: error.message }, 400);
+    }
+    logError(new Error("Unknown error"), {
+      endpoint: "/analytics/track",
+      userId,
+      requestId,
+    });
+    return c.json({ error: "Internal server error" }, 500);
+  }
 });
 
 app.post("/auth/signup", async (c) => {
@@ -385,9 +598,16 @@ app.post("/player/search", authMiddleware(), async (c) => {
 });
 
 app.post("/report/get", authMiddleware(), async (c) => {
+  const startTime = Date.now();
+  const userId = c.get("userId");
+  const requestId = c.get("requestId") as string | undefined;
+  let memberId: string | undefined;
+  
   try {
     const body = await c.req.json();
-    if (!body.memberId) {
+    memberId = body.memberId?.trim();
+    
+    if (!memberId) {
       return c.json(
         {
           error: "memberId is required in request body",
@@ -396,10 +616,7 @@ app.post("/report/get", authMiddleware(), async (c) => {
       );
     }
 
-    if (
-      typeof body.memberId !== "string" ||
-      body.memberId.trim().length === 0
-    ) {
+    if (typeof memberId !== "string" || memberId.length === 0) {
       return c.json(
         {
           error: "memberId must be a non-empty string",
@@ -435,26 +652,55 @@ app.post("/report/get", authMiddleware(), async (c) => {
       }
     }
 
-    const report = await handleReportGet(
-      body.memberId.trim(),
-      apaClient,
-      seasons,
-    );
+    logRequest("report_get_start", { endpoint: "/report/get", userId, memberId, requestId, seasons });
+    
+    const report = await handleReportGet(memberId, apaClient, seasons);
+    
+    const processingTime = Date.now() - startTime;
+    logRequest("report_get_success", {
+      endpoint: "/report/get",
+      userId,
+      memberId,
+      requestId,
+      processingTimeMs: processingTime,
+      totalMatches: report.totalMatches,
+    });
 
     return c.json(report);
   } catch (error) {
-    console.error("Report get error:", error);
+    const processingTime = Date.now() - startTime;
     if (error instanceof Error) {
+      logError(error, {
+        endpoint: "/report/get",
+        userId,
+        memberId,
+        requestId,
+        processingTimeMs: processingTime,
+      });
       return c.json({ error: error.message }, 400);
     }
+    logError(new Error("Unknown error"), {
+      endpoint: "/report/get",
+      userId,
+      memberId,
+      requestId,
+      processingTimeMs: processingTime,
+    });
     return c.json({ error: "Internal server error" }, 500);
   }
 });
 
 app.post("/wrapped/get", authMiddleware(), async (c) => {
+  const startTime = Date.now();
+  const userId = c.get("userId");
+  const requestId = c.get("requestId") as string | undefined;
+  let memberId: string | undefined;
+  
   try {
     const body = await c.req.json();
-    if (!body.memberId) {
+    memberId = body.memberId?.trim();
+    
+    if (!memberId) {
       return c.json(
         {
           error: "memberId is required in request body",
@@ -463,10 +709,7 @@ app.post("/wrapped/get", authMiddleware(), async (c) => {
       );
     }
 
-    if (
-      typeof body.memberId !== "string" ||
-      body.memberId.trim().length === 0
-    ) {
+    if (typeof memberId !== "string" || memberId.length === 0) {
       return c.json(
         {
           error: "memberId must be a non-empty string",
@@ -475,22 +718,57 @@ app.post("/wrapped/get", authMiddleware(), async (c) => {
       );
     }
 
-    const wrapped = await handleWrappedGet(body.memberId.trim(), apaClient);
+    logRequest("wrapped_get_start", { endpoint: "/wrapped/get", userId, memberId, requestId });
+    
+    const wrapped = await handleWrappedGet(memberId, apaClient);
+    
+    const processingTime = Date.now() - startTime;
+    logRequest("wrapped_get_success", {
+      endpoint: "/wrapped/get",
+      userId,
+      memberId,
+      requestId,
+      processingTimeMs: processingTime,
+      matchCount: wrapped.slides[0]?.type === "welcome" ? wrapped.slides[0].totalGames : undefined,
+    });
 
     return c.json(wrapped);
   } catch (error) {
-    console.error("Wrapped get error:", error);
+    const processingTime = Date.now() - startTime;
     if (error instanceof Error) {
+      logError(error, {
+        endpoint: "/wrapped/get",
+        userId,
+        memberId,
+        requestId,
+        processingTimeMs: processingTime,
+      });
       return c.json({ error: error.message }, 400);
     }
+    logError(new Error("Unknown error"), {
+      endpoint: "/wrapped/get",
+      userId,
+      memberId,
+      requestId,
+      processingTimeMs: processingTime,
+    });
     return c.json({ error: "Internal server error" }, 500);
   }
 });
 
 app.post("/wrapped/season/get", authMiddleware(), async (c) => {
+  const startTime = Date.now();
+  const userId = c.get("userId");
+  const requestId = c.get("requestId") as string | undefined;
+  let memberId: string | undefined;
+  let season: string | undefined;
+  
   try {
     const body = await c.req.json();
-    if (!body.memberId) {
+    memberId = body.memberId?.trim();
+    season = body.season?.trim();
+    
+    if (!memberId) {
       return c.json(
         {
           error: "memberId is required in request body",
@@ -499,7 +777,7 @@ app.post("/wrapped/season/get", authMiddleware(), async (c) => {
       );
     }
 
-    if (!body.season) {
+    if (!season) {
       return c.json(
         {
           error: "season is required in request body (e.g., 'Fall 2025')",
@@ -508,10 +786,7 @@ app.post("/wrapped/season/get", authMiddleware(), async (c) => {
       );
     }
 
-    if (
-      typeof body.memberId !== "string" ||
-      body.memberId.trim().length === 0
-    ) {
+    if (typeof memberId !== "string" || memberId.length === 0) {
       return c.json(
         {
           error: "memberId must be a non-empty string",
@@ -520,7 +795,7 @@ app.post("/wrapped/season/get", authMiddleware(), async (c) => {
       );
     }
 
-    if (typeof body.season !== "string" || body.season.trim().length === 0) {
+    if (typeof season !== "string" || season.length === 0) {
       return c.json(
         {
           error: "season must be a non-empty string (e.g., 'Fall 2025')",
@@ -529,26 +804,59 @@ app.post("/wrapped/season/get", authMiddleware(), async (c) => {
       );
     }
 
-    const wrapped = await handleWrappedSeasonGet(
-      body.memberId.trim(),
-      apaClient,
-      body.season.trim(),
-    );
+    logRequest("wrapped_season_get_start", { endpoint: "/wrapped/season/get", userId, memberId, requestId, season });
+    
+    const wrapped = await handleWrappedSeasonGet(memberId, apaClient, season);
+    
+    const processingTime = Date.now() - startTime;
+    logRequest("wrapped_season_get_success", {
+      endpoint: "/wrapped/season/get",
+      userId,
+      memberId,
+      requestId,
+      season,
+      processingTimeMs: processingTime,
+      matchCount: wrapped.slides[0]?.type === "welcome" ? wrapped.slides[0].totalGames : undefined,
+    });
 
     return c.json(wrapped);
   } catch (error) {
-    console.error("Wrapped season get error:", error);
+    const processingTime = Date.now() - startTime;
     if (error instanceof Error) {
+      logError(error, {
+        endpoint: "/wrapped/season/get",
+        userId,
+        memberId,
+        requestId,
+        season,
+        processingTimeMs: processingTime,
+      });
       return c.json({ error: error.message }, 400);
     }
+    logError(new Error("Unknown error"), {
+      endpoint: "/wrapped/season/get",
+      userId,
+      memberId,
+      requestId,
+      season,
+      processingTimeMs: processingTime,
+    });
     return c.json({ error: "Internal server error" }, 500);
   }
 });
 
 app.post("/wrapped/year/get", authMiddleware(), async (c) => {
+  const startTime = Date.now();
+  const userId = c.get("userId");
+  const requestId = c.get("requestId") as string | undefined;
+  let memberId: string | undefined;
+  let year: number | undefined;
+  
   try {
     const body = await c.req.json();
-    if (!body.memberId) {
+    memberId = body.memberId?.trim();
+    
+    if (!memberId) {
       return c.json(
         {
           error: "memberId is required in request body",
@@ -566,10 +874,7 @@ app.post("/wrapped/year/get", authMiddleware(), async (c) => {
       );
     }
 
-    if (
-      typeof body.memberId !== "string" ||
-      body.memberId.trim().length === 0
-    ) {
+    if (typeof memberId !== "string" || memberId.length === 0) {
       return c.json(
         {
           error: "memberId must be a non-empty string",
@@ -578,8 +883,8 @@ app.post("/wrapped/year/get", authMiddleware(), async (c) => {
       );
     }
 
-    const year = typeof body.year === "number" ? body.year : parseInt(body.year, 10);
-    if (isNaN(year) || year < 2000 || year > 2100) {
+    const parsedYear = typeof body.year === "number" ? body.year : parseInt(body.year, 10);
+    if (isNaN(parsedYear) || parsedYear < 2000 || parsedYear > 2100) {
       return c.json(
         {
           error: "year must be a valid year (e.g., 2025)",
@@ -587,19 +892,45 @@ app.post("/wrapped/year/get", authMiddleware(), async (c) => {
         400,
       );
     }
+    year = parsedYear;
 
-    const wrapped = await handleWrappedYearGet(
-      body.memberId.trim(),
-      apaClient,
+    logRequest("wrapped_year_get_start", { endpoint: "/wrapped/year/get", userId, memberId, requestId, year: parsedYear });
+    
+    const wrapped = await handleWrappedYearGet(memberId, apaClient, parsedYear);
+    
+    const processingTime = Date.now() - startTime;
+    logRequest("wrapped_year_get_success", {
+      endpoint: "/wrapped/year/get",
+      userId,
+      memberId,
+      requestId,
       year,
-    );
+      processingTimeMs: processingTime,
+      matchCount: wrapped.slides[0]?.type === "welcome" ? wrapped.slides[0].totalGames : undefined,
+    });
 
     return c.json(wrapped);
   } catch (error) {
-    console.error("Wrapped year get error:", error);
+    const processingTime = Date.now() - startTime;
     if (error instanceof Error) {
+      logError(error, {
+        endpoint: "/wrapped/year/get",
+        userId,
+        memberId,
+        requestId,
+        year,
+        processingTimeMs: processingTime,
+      });
       return c.json({ error: error.message }, 400);
     }
+    logError(new Error("Unknown error"), {
+      endpoint: "/wrapped/year/get",
+      userId,
+      memberId,
+      requestId,
+      year,
+      processingTimeMs: processingTime,
+    });
     return c.json({ error: "Internal server error" }, 500);
   }
 });

@@ -7,6 +7,8 @@ import { setCookie } from "hono/cookie";
 declare module "hono" {
   interface ContextVariableMap {
     supabase: SupabaseClient;
+    userId: string;
+    requestId: string;
   }
 }
 
@@ -64,6 +66,9 @@ export const authMiddleware = (): MiddlewareHandler => {
     if (userError || !user) {
       return c.json({ error: "Unauthorized - Authentication required" }, 401);
     }
+
+    // Set userId in context for logging
+    c.set("userId", user.id);
 
     await next();
   };

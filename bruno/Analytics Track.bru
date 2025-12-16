@@ -1,0 +1,26 @@
+meta {
+  name: Analytics Track
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{host}}/api/analytics/track
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "event": "page_view",
+    "properties": {
+      "page": "/wrapped",
+      "slide": "archetype"
+    },
+    "timestamp": "2025-01-20T12:00:00Z"
+  }
+}
