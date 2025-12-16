@@ -377,6 +377,8 @@ export const handleWrappedGet = async (
   }
 
   const playerIdByTeam: Record<string, string> = {};
+  // Map team APA IDs to skill levels from apaTeams
+  const skillLevelByTeamApaId: Record<string, number> = {};
   for (const t of apaTeams) {
     const normalizedTeamId = filteredTeams.find(
       (team) => team.apaId === t.team.id.toString(),
@@ -385,6 +387,10 @@ export const handleWrappedGet = async (
       continue;
     }
     playerIdByTeam[normalizedTeamId] = t.id;
+    // Store skill level from the team (EightBallPlayer or NineBallPlayer have skillLevel)
+    if ('skillLevel' in t && typeof t.skillLevel === 'number') {
+      skillLevelByTeamApaId[t.team.id.toString()] = t.skillLevel;
+    }
   }
 
   const matchesByTeam: Record<
@@ -602,8 +608,21 @@ export const handleWrappedGet = async (
   const winPercentage = totalGames > 0 ? (wins / totalGames) * 100 : 0;
 
   // Skill progression
-  const startingSkill = skillLevels[0] || 3;
-  const endingSkill = skillLevels[skillLevels.length - 1] || 3;
+  // Starting skill: skill level from the first match (earliest date)
+  const startingSkill = allPlayerMatches.length > 0 ? allPlayerMatches[0].playerSkill : 3;
+  
+  // Ending skill: skill level from the latest team (last team in filteredTeams)
+  // Find the latest team and get its skillLevel from apaTeams
+  let endingSkill = 3;
+  if (filteredTeams.length > 0) {
+    // filteredTeams is already sorted by season desc, so the first one is the latest
+    const latestTeam = filteredTeams[0];
+    const latestTeamSkillLevel = skillLevelByTeamApaId[latestTeam.apaId];
+    if (latestTeamSkillLevel !== undefined && latestTeamSkillLevel > 0) {
+      endingSkill = latestTeamSkillLevel;
+    }
+  }
+  
   const highestSkill = Math.max(...skillLevels, 3);
 
   // Longest win streak
