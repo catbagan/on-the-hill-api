@@ -76,9 +76,9 @@ const rateLimitMiddleware = async (c: any, next: () => Promise<void>) => {
   await next();
 };
 
-// Request timeout middleware (30 seconds)
+// Request timeout middleware (5m)
 const timeoutMiddleware = async (c: any, next: () => Promise<void>) => {
-  const timeout = 30000; // 30 seconds
+  const timeout = 1000 * 60 * 5; // 5m
   const timeoutId = setTimeout(() => {
     if (!c.res.headersSent) {
       c.res = new Response(
