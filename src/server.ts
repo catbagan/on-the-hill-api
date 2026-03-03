@@ -592,15 +592,33 @@ export function createApp(config: AppConfig) {
         }
       }
 
+      // Validate gameType if provided
+      const gameType = body.gameType;
+      if (gameType && gameType !== "EIGHT_BALL" && gameType !== "NINE_BALL") {
+        return c.json(
+          {
+            error:
+              "gameType must be 'EIGHT_BALL' or 'NINE_BALL'",
+          },
+          400,
+        );
+      }
+
       logRequest("report_get_start", {
         endpoint: "/report/get",
         userId,
         memberId,
         requestId,
         seasons,
+        gameType,
       });
 
-      const report = await handleReportGet(memberId, dataReader, seasons);
+      const report = await handleReportGet(
+        memberId,
+        dataReader,
+        seasons,
+        gameType,
+      );
 
       const processingTime = Date.now() - startTime;
       logRequest("report_get_success", {

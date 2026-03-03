@@ -479,7 +479,8 @@ function writeReportToCSV(report: PlayerReport, playerName: string): void {
 export const handleReportGet = async (
   memberId: string,
   apaClient: IAPAClient,
-  seasons?: string[], // Optional array of seasons like ["Spring 2025", "Fall 2025"]
+  seasons?: string[],
+  gameType?: string,
 ): Promise<any> => {
   const apaTeams = await apaClient.getTeamsForPlayer(memberId);
   let teams = sortTeamsBySeasonDesc(apaTeams.map(apaTeamToTeam));
@@ -514,6 +515,15 @@ export const handleReportGet = async (
       throw new Error(
         `No teams found for the specified seasons: ${seasons.join(", ")}`,
       );
+    }
+  }
+
+  // Filter by game type if provided
+  if (gameType) {
+    teams = teams.filter((team) => team.type === gameType);
+
+    if (teams.length === 0) {
+      throw new Error(`No ${gameType} teams found for this player`);
     }
   }
 
