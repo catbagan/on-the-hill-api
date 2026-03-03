@@ -43,3 +43,15 @@ body:json {
     }
   ]
 }
+
+script:post-response {
+  let data = res.getBody();
+  let alias = data[0] && data[0].data && data[0].data.alias;
+  if (alias) {
+    let allTeams = [].concat(alias.currentTeams || [], alias.pastTeams || []);
+    let eightBallTeam = allTeams.find(t => t.__typename === "EightBallPlayer" && t.team);
+    if (eightBallTeam) {
+      bru.setEnvVar("test_team_id", eightBallTeam.team.id.toString());
+    }
+  }
+}

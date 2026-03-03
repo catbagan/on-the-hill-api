@@ -41,3 +41,14 @@ body:json {
     }
   ]
 }
+
+script:post-response {
+  let data = res.getBody();
+  let hits = data[0] && data[0].data && data[0].data.search && data[0].data.search.hits;
+  if (hits && hits.length > 0) {
+    let member = hits.find(h => h.__typename === "Member");
+    if (member && member.aliases && member.aliases.length > 0) {
+      bru.setEnvVar("test_member_id", member.aliases[0].id.toString());
+    }
+  }
+}
