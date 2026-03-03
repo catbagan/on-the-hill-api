@@ -14,6 +14,7 @@ export class SupabaseDataReader implements IAPAClient {
 
   async searchForPlayer(playerName: string): Promise<Player | null> {
     // Search is always live — we can't replicate APA's search index
+    console.log(`[data] searchForPlayer: live APA (always)`);
     const player = await this.fallback.searchForPlayer(playerName);
 
     // Auto-track the player if found
@@ -37,6 +38,7 @@ export class SupabaseDataReader implements IAPAClient {
 
     if (!trackedPlayer?.last_scraped_at) {
       // Not scraped yet — fall back to live, register for tracking
+      console.log(`[data] getTeamsForPlayer(${memberId}): live APA (not yet scraped)`);
       await this.upsertTrackedPlayer(memberId);
       return this.fallback.getTeamsForPlayer(memberId);
     }
@@ -47,9 +49,11 @@ export class SupabaseDataReader implements IAPAClient {
       .eq("tracked_player_id", trackedPlayer.id);
 
     if (!teamSeasons || teamSeasons.length === 0) {
+      console.log(`[data] getTeamsForPlayer(${memberId}): live APA (no teams in Supabase)`);
       return this.fallback.getTeamsForPlayer(memberId);
     }
 
+    console.log(`[data] getTeamsForPlayer(${memberId}): Supabase (${teamSeasons.length} teams)`);
     return teamSeasons.map((ts: any) => this.dbRowToPlayerTeam(ts));
   }
 
@@ -63,6 +67,7 @@ export class SupabaseDataReader implements IAPAClient {
       .single();
 
     if (!teamSeason) {
+      console.log(`[data] getMatchesForTeam(${teamId}): live APA (team not in Supabase)`);
       return this.fallback.getMatchesForTeam(teamId);
     }
 
@@ -72,9 +77,11 @@ export class SupabaseDataReader implements IAPAClient {
       .eq("team_season_id", teamSeason.id);
 
     if (!matches || matches.length === 0) {
+      console.log(`[data] getMatchesForTeam(${teamId}): live APA (no matches in Supabase)`);
       return this.fallback.getMatchesForTeam(teamId);
     }
 
+    console.log(`[data] getMatchesForTeam(${teamId}): Supabase (${matches.length} matches)`);
     return matches.map((m: any) => this.dbRowToMatch(m));
   }
 
@@ -86,9 +93,11 @@ export class SupabaseDataReader implements IAPAClient {
       .single();
 
     if (!match) {
+      console.log(`[data] getMatchDetails(${scheduleId}): live APA`);
       return this.fallback.getMatchDetails(scheduleId);
     }
 
+    console.log(`[data] getMatchDetails(${scheduleId}): Supabase`);
     return this.dbRowToMatchDetails(match);
   }
 
