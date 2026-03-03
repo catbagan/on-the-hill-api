@@ -1,4 +1,4 @@
-import type { APAClient } from "./apa/client";
+import type { IAPAClient } from "./apa/apa-client.interface";
 import { sortTeamsBySeasonDesc } from "./helpers";
 import {
   apaMatchToMatch,
@@ -134,7 +134,9 @@ function calculateArchetypeScores(
   const archetypes: ArchetypeScore[] = [];
 
   // The Closer - best record when team is winning
-  const closerMatches = matches.filter((m) => m.teamSituation === "team_winning");
+  const closerMatches = matches.filter(
+    (m) => m.teamSituation === "team_winning",
+  );
   if (closerMatches.length > 0) {
     const closerWins = closerMatches.filter((m) => m.isWin).length;
     const closerWinRate = closerWins / closerMatches.length;
@@ -147,7 +149,9 @@ function calculateArchetypeScores(
   }
 
   // The Comeback Kid - best record when team is losing
-  const comebackMatches = matches.filter((m) => m.teamSituation === "team_losing");
+  const comebackMatches = matches.filter(
+    (m) => m.teamSituation === "team_losing",
+  );
   if (comebackMatches.length > 0) {
     const comebackWins = comebackMatches.filter((m) => m.isWin).length;
     const comebackWinRate = comebackWins / comebackMatches.length;
@@ -360,7 +364,7 @@ function calculateArchetypeScores(
 
 export const handleWrappedGet = async (
   memberId: string,
-  apaClient: APAClient,
+  apaClient: IAPAClient,
   seasonFilter?: (team: TeamSeason) => boolean,
 ): Promise<WrappedData> => {
   const apaTeams = await apaClient.getTeamsForPlayer(memberId);
@@ -388,7 +392,7 @@ export const handleWrappedGet = async (
     }
     playerIdByTeam[normalizedTeamId] = t.id;
     // Store skill level from the team (EightBallPlayer or NineBallPlayer have skillLevel)
-    if ('skillLevel' in t && typeof t.skillLevel === 'number') {
+    if ("skillLevel" in t && typeof t.skillLevel === "number") {
       skillLevelByTeamApaId[t.team.id.toString()] = t.skillLevel;
     }
   }
@@ -609,8 +613,9 @@ export const handleWrappedGet = async (
 
   // Skill progression
   // Starting skill: skill level from the first match (earliest date)
-  const startingSkill = allPlayerMatches.length > 0 ? allPlayerMatches[0].playerSkill : 3;
-  
+  const startingSkill =
+    allPlayerMatches.length > 0 ? allPlayerMatches[0].playerSkill : 3;
+
   // Ending skill: skill level from the latest team (last team in filteredTeams)
   // Find the latest team and get its skillLevel from apaTeams
   let endingSkill = 3;
@@ -622,7 +627,7 @@ export const handleWrappedGet = async (
       endingSkill = latestTeamSkillLevel;
     }
   }
-  
+
   const highestSkill = Math.max(...skillLevels, 3);
 
   // Longest win streak
@@ -709,7 +714,10 @@ export const handleWrappedGet = async (
   });
 
   // Top 3 best locations
-  const bestLocations = sortedLocations.slice(0, Math.min(3, sortedLocations.length));
+  const bestLocations = sortedLocations.slice(
+    0,
+    Math.min(3, sortedLocations.length),
+  );
   // Bottom 3 worst locations
   const worstLocations = sortedLocations
     .slice(-Math.min(3, sortedLocations.length))
@@ -751,19 +759,19 @@ export const handleWrappedGet = async (
   };
 
   // Slide 4: Rivals
-  const opponentRecordList: OpponentRecord[] = Object.entries(opponentRecords).map(
-    ([opponentName, stats]) => {
-      const total = stats.wins + stats.losses;
-      return {
-        opponentName,
-        wins: stats.wins,
-        losses: stats.losses,
-        winPercentage:
-          total > 0 ? Math.round((stats.wins / total) * 1000) / 10 : 0,
-        totalMatches: total,
-      };
-    },
-  );
+  const opponentRecordList: OpponentRecord[] = Object.entries(
+    opponentRecords,
+  ).map(([opponentName, stats]) => {
+    const total = stats.wins + stats.losses;
+    return {
+      opponentName,
+      wins: stats.wins,
+      losses: stats.losses,
+      winPercentage:
+        total > 0 ? Math.round((stats.wins / total) * 1000) / 10 : 0,
+      totalMatches: total,
+    };
+  });
 
   // Sort by total matches (descending), then by win percentage (descending) as tiebreaker
   const sortedOpponents = [...opponentRecordList].sort((a, b) => {
@@ -774,7 +782,10 @@ export const handleWrappedGet = async (
   });
 
   // Top 3 most played opponents
-  const mostPlayed = sortedOpponents.slice(0, Math.min(3, sortedOpponents.length));
+  const mostPlayed = sortedOpponents.slice(
+    0,
+    Math.min(3, sortedOpponents.length),
+  );
 
   // Sort opponent matchups by date to find opener and closer
   const sortedMatchups = [...opponentMatchups].sort(
@@ -807,7 +818,10 @@ export const handleWrappedGet = async (
 
   // Lowest Skill Opponents: top 3 opponents with lowest skill levels
   // Group by unique opponent name and skill level, then sort
-  const uniqueLowestSkillOpponents = new Map<string, typeof opponentMatchups[0]>();
+  const uniqueLowestSkillOpponents = new Map<
+    string,
+    (typeof opponentMatchups)[0]
+  >();
   opponentMatchups.forEach((m) => {
     const key = `${m.opponentName}_${m.opponentSkill}`;
     if (!uniqueLowestSkillOpponents.has(key)) {
@@ -817,21 +831,26 @@ export const handleWrappedGet = async (
   const sortedLowestSkill = Array.from(uniqueLowestSkillOpponents.values())
     .sort((a, b) => a.opponentSkill - b.opponentSkill)
     .slice(0, 3);
-  
-  const lowestSkillOpp: OpponentWithSkill[] = sortedLowestSkill.map((matchup) => {
-    const opponent = opponentRecordList.find(
-      (o) => o.opponentName === matchup.opponentName,
-    )!;
-    return {
-      ...opponent,
-      opponentSkill: matchup.opponentSkill,
-      date: matchup.date,
-      isWin: matchup.isWin,
-    };
-  });
+
+  const lowestSkillOpp: OpponentWithSkill[] = sortedLowestSkill.map(
+    (matchup) => {
+      const opponent = opponentRecordList.find(
+        (o) => o.opponentName === matchup.opponentName,
+      )!;
+      return {
+        ...opponent,
+        opponentSkill: matchup.opponentSkill,
+        date: matchup.date,
+        isWin: matchup.isWin,
+      };
+    },
+  );
 
   // Highest Skill Opponents: top 3 opponents with highest skill levels
-  const uniqueHighestSkillOpponents = new Map<string, typeof opponentMatchups[0]>();
+  const uniqueHighestSkillOpponents = new Map<
+    string,
+    (typeof opponentMatchups)[0]
+  >();
   opponentMatchups.forEach((m) => {
     const key = `${m.opponentName}_${m.opponentSkill}`;
     if (!uniqueHighestSkillOpponents.has(key)) {
@@ -841,18 +860,20 @@ export const handleWrappedGet = async (
   const sortedHighestSkill = Array.from(uniqueHighestSkillOpponents.values())
     .sort((a, b) => b.opponentSkill - a.opponentSkill)
     .slice(0, 3);
-  
-  const highestSkillOpp: OpponentWithSkill[] = sortedHighestSkill.map((matchup) => {
-    const opponent = opponentRecordList.find(
-      (o) => o.opponentName === matchup.opponentName,
-    )!;
-    return {
-      ...opponent,
-      opponentSkill: matchup.opponentSkill,
-      date: matchup.date,
-      isWin: matchup.isWin,
-    };
-  });
+
+  const highestSkillOpp: OpponentWithSkill[] = sortedHighestSkill.map(
+    (matchup) => {
+      const opponent = opponentRecordList.find(
+        (o) => o.opponentName === matchup.opponentName,
+      )!;
+      return {
+        ...opponent,
+        opponentSkill: matchup.opponentSkill,
+        date: matchup.date,
+        isWin: matchup.isWin,
+      };
+    },
+  );
 
   const slide4: WrappedSlide4 = {
     type: "rivals",
@@ -878,21 +899,21 @@ export const handleWrappedGet = async (
   // Slide 6: Summary
   // Collect all qualifying highlights with their priority weights
   const highlightsWithWeights: Array<{ text: string; weight: number }> = [];
-  
+
   // 1. Biggest Upset - Beat opponent with skill level at least 2 higher (weight: 6)
   const upsetMatches = allPlayerMatches.filter(
     (m) => m.isWin && m.skillDifference <= -2,
   );
   if (upsetMatches.length > 0) {
-    const biggestUpset = upsetMatches.reduce((max, m) => 
-      m.skillDifference < max.skillDifference ? m : max
+    const biggestUpset = upsetMatches.reduce((max, m) =>
+      m.skillDifference < max.skillDifference ? m : max,
     );
     highlightsWithWeights.push({
       text: `Beat a skill level ${biggestUpset.opponentSkill} opponent while you were skill level ${biggestUpset.playerSkill}`,
       weight: 6,
     });
   }
-  
+
   // 2. Grinder - Won matches that went to 2-1 (weight: 5)
   const grinderMatches = allPlayerMatches.filter(
     (m) => m.isWin && m.playerScore === 2 && m.opponentScore === 1,
@@ -903,7 +924,7 @@ export const handleWrappedGet = async (
       weight: 5,
     });
   }
-  
+
   // 3. Dominant Sweeps - Won matches 3-0 (weight: 4)
   const sweepMatches = allPlayerMatches.filter(
     (m) => m.isWin && m.playerScore === 3 && m.opponentScore === 0,
@@ -914,7 +935,7 @@ export const handleWrappedGet = async (
       weight: 4,
     });
   }
-  
+
   // 4. Skill Level Range - Beat opponents across skill range (weight: 3)
   const wonMatches = allPlayerMatches.filter((m) => m.isWin);
   if (wonMatches.length >= 3) {
@@ -928,12 +949,15 @@ export const handleWrappedGet = async (
       });
     }
   }
-  
+
   // 5. Repeat Success - Beat same opponent multiple times (weight: 2)
   const winsByOpponent = new Map<string, number>();
   allPlayerMatches.forEach((m) => {
     if (m.isWin) {
-      winsByOpponent.set(m.opponentName, (winsByOpponent.get(m.opponentName) || 0) + 1);
+      winsByOpponent.set(
+        m.opponentName,
+        (winsByOpponent.get(m.opponentName) || 0) + 1,
+      );
     }
   });
   const repeatOpponent = Array.from(winsByOpponent.entries())
@@ -945,7 +969,7 @@ export const handleWrappedGet = async (
       weight: 2,
     });
   }
-  
+
   // 6. Clutch Performer - Won matches when team was losing (weight: 1)
   const clutchMatches = allPlayerMatches.filter(
     (m) => m.isWin && m.teamSituation === "team_losing",
@@ -956,7 +980,7 @@ export const handleWrappedGet = async (
       weight: 1,
     });
   }
-  
+
   // Additional highlights if we need more (weight: 0.5)
   if (endingSkill > startingSkill) {
     highlightsWithWeights.push({
@@ -979,12 +1003,11 @@ export const handleWrappedGet = async (
       });
     }
   }
-  
+
   // Convert funStat to a highlight (weight: 0.5)
   const uniqueLocations = new Set(allPlayerMatches.map((m) => m.location)).size;
-  const uniqueOpponents = new Set(
-    allPlayerMatches.map((m) => m.opponentName),
-  ).size;
+  const uniqueOpponents = new Set(allPlayerMatches.map((m) => m.opponentName))
+    .size;
   if (uniqueLocations > 1) {
     highlightsWithWeights.push({
       text: `Played at ${uniqueLocations} different locations`,
@@ -1000,14 +1023,17 @@ export const handleWrappedGet = async (
   // Weighted random selection: select 3 highlights based on weights
   const top3Highlights: string[] = [];
   const remainingHighlights = [...highlightsWithWeights];
-  
+
   for (let i = 0; i < 3 && remainingHighlights.length > 0; i++) {
     // Calculate total weight
-    const totalWeight = remainingHighlights.reduce((sum, h) => sum + h.weight, 0);
-    
+    const totalWeight = remainingHighlights.reduce(
+      (sum, h) => sum + h.weight,
+      0,
+    );
+
     // Random number between 0 and totalWeight
     let random = Math.random() * totalWeight;
-    
+
     // Select highlight based on weighted probability
     let selectedIndex = 0;
     for (let j = 0; j < remainingHighlights.length; j++) {
@@ -1017,7 +1043,7 @@ export const handleWrappedGet = async (
         break;
       }
     }
-    
+
     // Add selected highlight and remove from remaining
     top3Highlights.push(remainingHighlights[selectedIndex].text);
     remainingHighlights.splice(selectedIndex, 1);
@@ -1042,7 +1068,7 @@ export const handleWrappedGet = async (
 // Wrapper for season-specific wrapped (e.g., "Fall 2025")
 export const handleWrappedSeasonGet = async (
   memberId: string,
-  apaClient: APAClient,
+  apaClient: IAPAClient,
   season: string, // Format: "Fall 2025"
 ): Promise<WrappedData> => {
   // Parse season string
@@ -1063,7 +1089,7 @@ export const handleWrappedSeasonGet = async (
 // Wrapper for year-specific wrapped (Spring/Summer/Fall of a given year)
 export const handleWrappedYearGet = async (
   memberId: string,
-  apaClient: APAClient,
+  apaClient: IAPAClient,
   year: number,
 ): Promise<WrappedData> => {
   return handleWrappedGet(memberId, apaClient, (team) => {
@@ -1075,5 +1101,3 @@ export const handleWrappedYearGet = async (
     );
   });
 };
-
-

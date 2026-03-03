@@ -1,4 +1,6 @@
-import type { APAClient } from "./apa/client";
+import { mkdirSync, writeFileSync } from "fs";
+import { join } from "path";
+import type { IAPAClient } from "./apa/apa-client.interface";
 import { sortTeamsBySeasonDesc } from "./helpers";
 import {
   apaMatchToMatch,
@@ -10,10 +12,10 @@ import {
   type TeamSeason,
   Trending,
 } from "./types";
-import { writeFileSync, mkdirSync } from "fs";
-import { join } from "path";
 
-function calculateTrendingMetrics(matchResults: Array<{ isWin: boolean; date: Date; season: string }>) {
+function calculateTrendingMetrics(
+  matchResults: Array<{ isWin: boolean; date: Date; season: string }>,
+) {
   if (matchResults.length === 0) {
     return {
       currentStreak: 0,
@@ -72,7 +74,11 @@ function calculateTrendingMetrics(matchResults: Array<{ isWin: boolean; date: Da
   const last5Matches = { wins: 0, losses: 0 };
   const last10Matches = { wins: 0, losses: 0 };
 
-  for (let i = Math.max(0, matchResults.length - 10); i < matchResults.length; i++) {
+  for (
+    let i = Math.max(0, matchResults.length - 10);
+    i < matchResults.length;
+    i++
+  ) {
     const result = matchResults[i];
     if (i >= matchResults.length - 3) {
       if (result.isWin) last3Matches.wins++;
@@ -88,7 +94,7 @@ function calculateTrendingMetrics(matchResults: Array<{ isWin: boolean; date: Da
 
   // Determine trending
   let trending = Trending.STABLE;
-  
+
   if (currentStreak >= 3) {
     trending = Trending.HOT;
   } else if (currentStreak <= -3) {
@@ -96,11 +102,11 @@ function calculateTrendingMetrics(matchResults: Array<{ isWin: boolean; date: Da
   } else if (matchResults.length >= 6) {
     const recent3 = matchResults.slice(-3);
     const older3 = matchResults.slice(-6, -3);
-    
+
     if (older3.length >= 3) {
-      const recentWinRate = recent3.filter(r => r.isWin).length / 3;
-      const olderWinRate = older3.filter(r => r.isWin).length / 3;
-      
+      const recentWinRate = recent3.filter((r) => r.isWin).length / 3;
+      const olderWinRate = older3.filter((r) => r.isWin).length / 3;
+
       if (recentWinRate > olderWinRate + 0.2) {
         trending = Trending.IMPROVING;
       } else if (recentWinRate < olderWinRate - 0.2) {
@@ -144,7 +150,7 @@ export function generateReport(
   };
 
   let totalMatches = 0;
-  
+
   // Collect all match results in chronological order for trending analysis
   const allMatchResults: Array<{
     isWin: boolean;
@@ -333,16 +339,21 @@ function writeReportToCSV(report: PlayerReport, playerName: string): void {
     // Directory might already exist, that's fine
   }
 
-  const filename = `${playerName.replace(/[^a-zA-Z0-9]/g, '_')}_report.csv`;
+  const filename = `${playerName.replace(/[^a-zA-Z0-9]/g, "_")}_report.csv`;
   const filepath = join(reportsDir, filename);
 
   const csvLines: string[] = [];
-  
+
   // Overall Stats
   csvLines.push("Overall Statistics");
   csvLines.push("Wins,Losses,Win Percentage,Total Matches");
-  const winPercentage = report.totalMatches > 0 ? ((report.overallWins / report.totalMatches) * 100).toFixed(1) : "0.0";
-  csvLines.push(`${report.overallWins},${report.overallLosses},${winPercentage}%,${report.totalMatches}`);
+  const winPercentage =
+    report.totalMatches > 0
+      ? ((report.overallWins / report.totalMatches) * 100).toFixed(1)
+      : "0.0";
+  csvLines.push(
+    `${report.overallWins},${report.overallLosses},${winPercentage}%,${report.totalMatches}`,
+  );
   csvLines.push(""); // Empty line for spacing
 
   // By Session
@@ -371,7 +382,9 @@ function writeReportToCSV(report: PlayerReport, playerName: string): void {
   Object.entries(report.byPosition).forEach(([position, stats]) => {
     const total = stats.wins + stats.losses;
     const winPct = total > 0 ? ((stats.wins / total) * 100).toFixed(1) : "0.0";
-    csvLines.push(`Position ${position},${stats.wins},${stats.losses},${winPct}%`);
+    csvLines.push(
+      `Position ${position},${stats.wins},${stats.losses},${winPct}%`,
+    );
   });
   csvLines.push("");
 
@@ -394,7 +407,9 @@ function writeReportToCSV(report: PlayerReport, playerName: string): void {
   csvLines.push("");
 
   // By Skill Difference
-  csvLines.push("Performance by Skill Difference (Your Skill - Opponent Skill)");
+  csvLines.push(
+    "Performance by Skill Difference (Your Skill - Opponent Skill)",
+  );
   csvLines.push("Skill Difference,Wins,Losses,Win Percentage");
   Object.entries(report.bySkillDifference).forEach(([diff, stats]) => {
     const total = stats.wins + stats.losses;
@@ -439,9 +454,15 @@ function writeReportToCSV(report: PlayerReport, playerName: string): void {
   Object.entries(report.byTeamSituation).forEach(([situation, stats]) => {
     const total = stats.wins + stats.losses;
     const winPct = total > 0 ? ((stats.wins / total) * 100).toFixed(1) : "0.0";
-    const situationName = situation === "team_winning" ? "Team Winning" : 
-                         situation === "team_losing" ? "Team Losing" : "Team Tied";
-    csvLines.push(`"${situationName}",${stats.wins},${stats.losses},${winPct}%`);
+    const situationName =
+      situation === "team_winning"
+        ? "Team Winning"
+        : situation === "team_losing"
+          ? "Team Losing"
+          : "Team Tied";
+    csvLines.push(
+      `"${situationName}",${stats.wins},${stats.losses},${winPct}%`,
+    );
   });
   csvLines.push("");
 
@@ -451,13 +472,13 @@ function writeReportToCSV(report: PlayerReport, playerName: string): void {
   csvLines.push(`${report.generatedAt.toISOString()},${report.totalTeams}`);
 
   // Write to file
-  writeFileSync(filepath, csvLines.join('\n'), 'utf8');
+  writeFileSync(filepath, csvLines.join("\n"), "utf8");
   console.log(`Report written to: ${filepath}`);
 }
 
 export const handleReportGet = async (
   memberId: string,
-  apaClient: APAClient,
+  apaClient: IAPAClient,
   seasons?: string[], // Optional array of seasons like ["Spring 2025", "Fall 2025"]
 ): Promise<any> => {
   const apaTeams = await apaClient.getTeamsForPlayer(memberId);
@@ -466,23 +487,26 @@ export const handleReportGet = async (
   // Filter by seasons if provided
   if (seasons && seasons.length > 0) {
     // Parse season strings into {season, seasonYear} objects
-    const seasonFilters = seasons.map((seasonStr) => {
-      // Parse "Spring 2025" format
-      const match = seasonStr.match(/(\w+)\s+(\d+)/);
-      if (match) {
-        return {
-          season: match[1],
-          seasonYear: parseInt(match[2], 10),
-        };
-      }
-      return null;
-    }).filter((s): s is { season: string; seasonYear: number } => s !== null);
+    const seasonFilters = seasons
+      .map((seasonStr) => {
+        // Parse "Spring 2025" format
+        const match = seasonStr.match(/(\w+)\s+(\d+)/);
+        if (match) {
+          return {
+            season: match[1],
+            seasonYear: parseInt(match[2], 10),
+          };
+        }
+        return null;
+      })
+      .filter((s): s is { season: string; seasonYear: number } => s !== null);
 
     // Filter teams to only include matching seasons
     teams = teams.filter((team) =>
       seasonFilters.some(
         (filter) =>
-          team.season === filter.season && team.seasonYear === filter.seasonYear,
+          team.season === filter.season &&
+          team.seasonYear === filter.seasonYear,
       ),
     );
 
