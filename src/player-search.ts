@@ -1,10 +1,10 @@
-import type { APAClient } from "./apa/client";
+import type { IAPAClient } from "./apa/apa-client.interface";
 import { sortTeamsBySeasonDesc } from "./helpers";
 import { apaPlayerToPlayer, apaTeamToTeam } from "./types";
 
 export const handlePlayerSearch = async (
   playerName: string,
-  apaClient: APAClient,
+  apaClient: IAPAClient,
 ): Promise<any | null> => {
   const apaPlayer = await apaClient.searchForPlayer(playerName);
   const player = apaPlayerToPlayer(apaPlayer);

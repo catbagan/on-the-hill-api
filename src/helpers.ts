@@ -1,4 +1,4 @@
-import { TeamSeason } from './types';
+import type { TeamSeason } from "./types";
 
 /**
  * Sorts teams by season in chronological order
@@ -11,18 +11,18 @@ export function sortTeamsBySeason(teams: TeamSeason[]): TeamSeason[] {
     if (a.seasonYear !== b.seasonYear) {
       return a.seasonYear - b.seasonYear;
     }
-    
+
     // If same year, sort by season order (Spring, Summer, Fall, Winter)
     const seasonOrder = {
-      'Spring': 1,
-      'Summer': 2,
-      'Fall': 3,
-      'Winter': 4
+      Spring: 1,
+      Summer: 2,
+      Fall: 3,
+      Winter: 4,
     };
-    
+
     const aOrder = seasonOrder[a.season as keyof typeof seasonOrder] || 0;
     const bOrder = seasonOrder[b.season as keyof typeof seasonOrder] || 0;
-    
+
     return aOrder - bOrder;
   });
 }

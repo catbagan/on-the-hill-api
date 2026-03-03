@@ -4,8 +4,8 @@
   "description": "On The Hill API - Pool player statistics and reports",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js",
-    "dev": "tsx watch src/server.ts",
+    "start": "node dist/node-server.js",
+    "dev": "tsx watch src/node-server.ts",
     "biome": "biome check --write ."
   },
   "dependencies": {

@@ -1,3 +1,5 @@
+import type { TokenStore } from "./token-store";
+import { InMemoryTokenStore } from "./token-store";
 import type {
   AliasResponse,
   AuthorizeResponse,
@@ -17,9 +19,7 @@ import type {
 export class APAClient {
   private username: string;
   private password: string;
-
-  private currentAuthToken: string | null = null;
-  private deviceRefreshToken: string | null = null;
+  private tokenStore: TokenStore;
 
   private isTokenExpiredError(error: GraphQLError): boolean {
     return (
@@ -28,9 +28,10 @@ export class APAClient {
     );
   }
 
-  constructor(username: string, password: string) {
+  constructor(username: string, password: string, tokenStore?: TokenStore) {
     this.username = username;
     this.password = password;
+    this.tokenStore = tokenStore || new InMemoryTokenStore();
   }
 
   async login(username: string, password: string): Promise<string> {
@@ -153,14 +154,17 @@ export class APAClient {
       throw new Error("No authorize data returned");
     }
 
-    this.deviceRefreshToken = authorizeData.data.authorize.refreshToken;
+    await this.tokenStore.setRefreshToken(
+      authorizeData.data.authorize.refreshToken,
+    );
     const accessToken = await this.generateAccessToken();
 
     return accessToken;
   }
 
   private async generateAccessToken(): Promise<string> {
-    if (!this.deviceRefreshToken) {
+    const refreshToken = await this.tokenStore.getRefreshToken();
+    if (!refreshToken) {
       throw new Error("No refresh token available");
     }
 
@@ -189,7 +193,7 @@ export class APAClient {
         {
           operationName: "GenerateAccessTokenMutation",
           variables: {
-            refreshToken: this.deviceRefreshToken,
+            refreshToken,
           },
           query:
             "mutation GenerateAccessTokenMutation($refreshToken: String!) {\n  generateAccessToken(refreshToken: $refreshToken) {\n    accessToken\n    __typename\n  }\n}\n",
@@ -210,8 +214,7 @@ export class APAClient {
       if (isTokenExpired) {
         console.log("Refresh token expired, need to re-login");
         // Clear tokens to force re-login
-        this.currentAuthToken = null;
-        this.deviceRefreshToken = null;
+        await this.tokenStore.clearTokens();
         throw new Error("Refresh token expired");
       }
 
@@ -222,12 +225,14 @@ export class APAClient {
       throw new Error("No access token returned from GraphQL query");
     }
 
-    this.currentAuthToken = data[0].data.generateAccessToken.accessToken;
-    return this.currentAuthToken;
+    const newToken = data[0].data.generateAccessToken.accessToken;
+    await this.tokenStore.setToken(newToken);
+    return newToken;
   }
 
   private async getAuthHeaders(): Promise<Record<string, string>> {
-    if (!this.currentAuthToken) {
+    let currentToken = await this.tokenStore.getToken();
+    if (!currentToken) {
       try {
         await this.generateAccessToken();
       } catch (error) {
@@ -242,7 +247,8 @@ export class APAClient {
       }
     }
 
-    if (!this.currentAuthToken) {
+    currentToken = await this.tokenStore.getToken();
+    if (!currentToken) {
       throw new Error("No auth token available");
     }
 
@@ -251,7 +257,7 @@ export class APAClient {
       "accept-language": "en-US,en;q=0.9",
       "apollographql-client-name": "MemberServices",
       "apollographql-client-version": "3.18.37-3511",
-      authorization: this.currentAuthToken,
+      authorization: currentToken,
       "content-type": "application/json",
       priority: "u=1, i",
       "sec-ch-ua": '"Not)A;Brand";v="8", "Chromium";v="138"',
@@ -305,8 +311,7 @@ export class APAClient {
         console.log("Token expired, attempting to re-login...");
 
         // Clear current tokens
-        this.currentAuthToken = null;
-        this.deviceRefreshToken = null;
+        await this.tokenStore.clearTokens();
 
         // Re-login
         try {
@@ -326,7 +331,7 @@ export class APAClient {
             `Re-login failed: ${loginError instanceof Error ? loginError.message : "Unknown error"}`,
           );
         }
-              }
+      }
 
       throw new Error(`GraphQL error: ${data[0].errors[0].message}`);
     }
