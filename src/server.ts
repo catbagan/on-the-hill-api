@@ -1,9 +1,11 @@
 import { createServerClient } from "@supabase/ssr";
+import { createClient } from "@supabase/supabase-js";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { APAClient } from "./apa/client";
 import type { TokenStore } from "./apa/token-store";
+import { SupabaseDataReader } from "./data/supabase-reader";
 import {
   authMiddleware,
   getSupabase,
@@ -86,6 +88,13 @@ export function createApp(config: AppConfig) {
     config.apaPassword,
     config.tokenStore,
   );
+
+  // Supabase service role client for reading scraped data
+  const serviceSupabase = createClient(
+    config.supabaseUrl,
+    config.supabaseServiceRoleKey,
+  );
+  const dataReader = new SupabaseDataReader(serviceSupabase, apaClient);
 
   // Website app (serves static HTML pages)
   const websiteApp = new Hono();
@@ -509,7 +518,7 @@ export function createApp(config: AppConfig) {
         );
       }
 
-      const player = await handlePlayerSearch(body.name.trim(), apaClient);
+      const player = await handlePlayerSearch(body.name.trim(), dataReader);
 
       if (!player) {
         return c.json(
@@ -591,7 +600,7 @@ export function createApp(config: AppConfig) {
         seasons,
       });
 
-      const report = await handleReportGet(memberId, apaClient, seasons);
+      const report = await handleReportGet(memberId, dataReader, seasons);
 
       const processingTime = Date.now() - startTime;
       logRequest("report_get_success", {
@@ -662,7 +671,7 @@ export function createApp(config: AppConfig) {
         requestId,
       });
 
-      const wrapped = await handleWrappedGet(memberId, apaClient);
+      const wrapped = await handleWrappedGet(memberId, dataReader);
 
       const processingTime = Date.now() - startTime;
       logRequest("wrapped_get_success", {
@@ -757,7 +766,11 @@ export function createApp(config: AppConfig) {
         season,
       });
 
-      const wrapped = await handleWrappedSeasonGet(memberId, apaClient, season);
+      const wrapped = await handleWrappedSeasonGet(
+        memberId,
+        dataReader,
+        season,
+      );
 
       const processingTime = Date.now() - startTime;
       logRequest("wrapped_season_get_success", {
@@ -859,7 +872,7 @@ export function createApp(config: AppConfig) {
 
       const wrapped = await handleWrappedYearGet(
         memberId,
-        apaClient,
+        dataReader,
         parsedYear,
       );
 

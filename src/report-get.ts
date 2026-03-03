@@ -547,7 +547,7 @@ export const handleReportGet = async (
           matchesByTeam[team.id] = [];
         }
 
-        const playerMatches = apaMatchToPlayerMatches(apaMatch);
+        const playerMatches = apaMatchToPlayerMatches(apaMatch, team.type);
         matchesByTeam[team.id].push({
           ...match,
           playerMatches,

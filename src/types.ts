@@ -154,7 +154,11 @@ export function apaMatchToMatch(apaMatch: any): Match {
   };
 }
 
-export function apaMatchToPlayerMatches(apaMatch: any): Array<PlayerMatch> {
+export function apaMatchToPlayerMatches(
+  apaMatch: any,
+  teamType: TeamType = TeamType.EIGHT_BALL,
+): Array<PlayerMatch> {
+  const isNineBall = teamType === TeamType.NINE_BALL;
   const results = apaMatch.results;
   const homeMatchScores = results.find(
     (r: any) => r.homeAway === "HOME",
@@ -181,10 +185,14 @@ export function apaMatchToPlayerMatches(apaMatch: any): Array<PlayerMatch> {
       name: homeMatchScore.player?.displayName,
       skillLevel:
         homeMatchScore.skillLevel === 0 ? 3 : homeMatchScore.skillLevel,
-      score: homeMatchScore.eightBallMatchPointsEarned,
+      score: isNineBall
+        ? homeMatchScore.nineBallMatchPointsEarned
+        : homeMatchScore.eightBallMatchPointsEarned,
       innings: homeMatchScore.innings,
       defensiveShots: homeMatchScore.defensiveShots,
-      gamesWon: homeMatchScore.eightBallWins,
+      gamesWon: isNineBall
+        ? homeMatchScore.nineBallPoints
+        : homeMatchScore.eightBallWins,
     };
 
     const awayPlayerStats: PlayerMatchStats = {
@@ -192,10 +200,14 @@ export function apaMatchToPlayerMatches(apaMatch: any): Array<PlayerMatch> {
       name: awayMatchScore.player?.displayName,
       skillLevel:
         awayMatchScore.skillLevel === 0 ? 3 : awayMatchScore.skillLevel,
-      score: awayMatchScore.eightBallMatchPointsEarned,
+      score: isNineBall
+        ? awayMatchScore.nineBallMatchPointsEarned
+        : awayMatchScore.eightBallMatchPointsEarned,
       innings: awayMatchScore.innings,
       defensiveShots: awayMatchScore.defensiveShots,
-      gamesWon: awayMatchScore.eightBallWins,
+      gamesWon: isNineBall
+        ? awayMatchScore.nineBallPoints
+        : awayMatchScore.eightBallWins,
     };
 
     const match: PlayerMatch = {

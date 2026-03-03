@@ -1,0 +1,21 @@
+name: Nightly Scrape
+on:
+  schedule:
+    - cron: "0 6 * * *" # 6 AM UTC (midnight CST)
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.16.0"
+      - run: npm ci
+      - run: npm run scrape
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          APA_USERNAME: ${{ secrets.APA_USERNAME }}
+          APA_PASSWORD: ${{ secrets.APA_PASSWORD }}
