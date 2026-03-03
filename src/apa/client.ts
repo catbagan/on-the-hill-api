@@ -615,7 +615,8 @@ export class APAClient {
     }
 
     const filteredTeams = allTeams.filter(
-      (t) => t.__typename === "EightBallPlayer",
+      (t) =>
+        t.__typename === "EightBallPlayer" || t.__typename === "NineBallPlayer",
     );
     return filteredTeams;
   }

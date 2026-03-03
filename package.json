@@ -6,7 +6,8 @@
     "build": "tsc",
     "start": "node dist/node-server.js",
     "dev": "tsx watch src/node-server.ts",
-    "biome": "biome check --write ."
+    "biome": "biome check --write .",
+    "scrape": "tsx src/scraper.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.12.2",
