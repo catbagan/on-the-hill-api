@@ -17,3 +17,10 @@ headers {
 body:json {
   {"email": "{{test_email}}", "password": "{{test_password}}"}
 }
+
+script:post-response {
+  let data = res.getBody();
+  if (data.user && data.user.id) {
+    bru.setEnvVar("test_user_id", data.user.id);
+  }
+}

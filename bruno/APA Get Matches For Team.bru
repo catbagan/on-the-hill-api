@@ -41,3 +41,14 @@ body:json {
     }
   ]
 }
+
+script:post-response {
+  let data = res.getBody();
+  let team = data[0] && data[0].data && data[0].data.team;
+  if (team && team.matches) {
+    let scoredMatch = team.matches.find(m => m.id && m.status !== "UNPLAYED" && !m.isBye);
+    if (scoredMatch) {
+      bru.setEnvVar("test_match_id", scoredMatch.id.toString());
+    }
+  }
+}

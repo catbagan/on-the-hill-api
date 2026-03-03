@@ -15,5 +15,17 @@ headers {
 }
 
 body:json {
-  {"username": "", "password": ""}
+  {
+    "email": "{{test_email}}",
+    "password": "{{test_password}}",
+    "givenName": "Test",
+    "familyName": "User"
+  }
+}
+
+script:post-response {
+  let data = res.getBody();
+  if (data.user && data.user.id) {
+    bru.setEnvVar("test_user_id", data.user.id);
+  }
 }
