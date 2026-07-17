@@ -1,0 +1,632 @@
+[
+  {
+    "id": 43720015,
+    "week": 1,
+    "type": "EIGHT",
+    "startTime": "2024-09-09T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564152,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564151,
+      "name": "The Green Womb",
+      "number": "12301",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 43720026,
+    "week": 2,
+    "type": "EIGHT",
+    "startTime": "2024-09-16T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564163,
+      "name": "North Bowl",
+      "number": "12311",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564152,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 43720031,
+    "week": 3,
+    "type": "EIGHT",
+    "startTime": "2024-09-23T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564152,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564155,
+      "name": "Scratch Masters",
+      "number": "12305",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 43720036,
+    "week": 4,
+    "type": "EIGHT",
+    "startTime": "2024-09-30T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 105059,
+      "name": "BAR - 1309 Sansom",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564161,
+      "name": "High 8alls",
+      "number": "12309",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564152,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 43720041,
+    "week": 5,
+    "type": "EIGHT",
+    "startTime": "2024-10-07T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564152,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564153,
+      "name": "Midnight Marauders",
+      "number": "12303",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 43720046,
+    "week": 6,
+    "type": "EIGHT",
+    "startTime": "2024-10-14T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 73693,
+      "name": "Ten Stone Restaurant",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564157,
+      "name": "Las Vegas Lounge",
+      "number": "12307",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564152,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 43720054,
+    "week": 7,
+    "type": "EIGHT",
+    "startTime": "2024-10-21T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564152,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564158,
+      "name": "Local Heroes",
+      "number": "12308",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 43720060,
+    "week": 8,
+    "type": "EIGHT",
+    "startTime": "2024-10-28T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564152,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564162,
+      "name": "Cuedado",
+      "number": "12310",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 43720066,
+    "week": 9,
+    "type": "EIGHT",
+    "startTime": "2024-11-04T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35777,
+      "name": "Druid's Keep",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564154,
+      "name": "Reapers",
+      "number": "12304",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564152,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 43720072,
+    "week": 10,
+    "type": "EIGHT",
+    "startTime": "2024-11-11T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91303,
+      "name": "Buffalo Billiards",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564156,
+      "name": "Dead Rabbits",
+      "number": "12306",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564152,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 43720078,
+    "week": 11,
+    "type": "EIGHT",
+    "startTime": "2024-11-18T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564152,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12602152,
+      "name": "Pocket Aces",
+      "number": "12312",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 43720081,
+    "week": 12,
+    "type": "EIGHT",
+    "startTime": "2024-11-25T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564151,
+      "name": "The Green Womb",
+      "number": "12301",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564152,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 43720092,
+    "week": 13,
+    "type": "EIGHT",
+    "startTime": "2024-12-02T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564152,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564163,
+      "name": "North Bowl",
+      "number": "12311",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 43720097,
+    "week": 14,
+    "type": "EIGHT",
+    "startTime": "2024-12-09T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91303,
+      "name": "Buffalo Billiards",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564155,
+      "name": "Scratch Masters",
+      "number": "12305",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564152,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 45027978,
+    "week": 15,
+    "type": "EIGHT",
+    "startTime": "2024-12-16T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": true,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564152,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564158,
+      "name": "Local Heroes",
+      "number": "12308",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 45027977,
+    "week": 15,
+    "type": "EIGHT",
+    "startTime": "2024-12-16T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": true,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564163,
+      "name": "North Bowl",
+      "number": "12311",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564151,
+      "name": "The Green Womb",
+      "number": "12301",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 45027979,
+    "week": 15,
+    "type": "EIGHT",
+    "startTime": "2024-12-16T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": true,
+    "description": "",
+    "location": {
+      "id": 91303,
+      "name": "Buffalo Billiards",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564155,
+      "name": "Scratch Masters",
+      "number": "12305",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564154,
+      "name": "Reapers",
+      "number": "12304",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 45027980,
+    "week": 15,
+    "type": "EIGHT",
+    "startTime": "2024-12-16T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": true,
+    "description": "",
+    "location": {
+      "id": 105059,
+      "name": "BAR - 1309 Sansom",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564161,
+      "name": "High 8alls",
+      "number": "12309",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564162,
+      "name": "Cuedado",
+      "number": "12310",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  }
+]

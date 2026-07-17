@@ -1,0 +1,44 @@
+{
+  "id": 50414823,
+  "startTime": "2026-06-23T19:30:00-04:00",
+  "location": {
+    "id": 35782,
+    "name": "Green Room",
+    "__typename": "HostLocation"
+  },
+  "home": {
+    "id": 13029846,
+    "name": "The Wrong Pockets",
+    "__typename": "Team"
+  },
+  "away": {
+    "id": 13029855,
+    "name": "Bye",
+    "__typename": "Team"
+  },
+  "results": [
+    {
+      "homeAway": "HOME",
+      "matchesWon": 0,
+      "matchesPlayed": 0,
+      "points": {
+        "total": 85,
+        "__typename": "MatchResultPoints"
+      },
+      "scores": [],
+      "__typename": "MatchResult"
+    },
+    {
+      "homeAway": "AWAY",
+      "matchesWon": 0,
+      "matchesPlayed": 0,
+      "points": {
+        "total": 0,
+        "__typename": "MatchResultPoints"
+      },
+      "scores": [],
+      "__typename": "MatchResult"
+    }
+  ],
+  "__typename": "Match"
+}

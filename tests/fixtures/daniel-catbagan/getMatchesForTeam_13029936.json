@@ -1,0 +1,317 @@
+[
+  {
+    "id": 50267801,
+    "week": 1,
+    "type": "EIGHT",
+    "startTime": "2026-05-04T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029936,
+      "name": "The Pool Hall Junkies",
+      "number": "12305",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029937,
+      "name": "Gettin' Sticky Wit it",
+      "number": "12306",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50267808,
+    "week": 2,
+    "type": "EIGHT",
+    "startTime": "2026-05-11T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35777,
+      "name": "Druid's Keep",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029939,
+      "name": "Midnight Marauders",
+      "number": "12308",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029936,
+      "name": "The Pool Hall Junkies",
+      "number": "12305",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50267815,
+    "week": 3,
+    "type": "EIGHT",
+    "startTime": "2026-05-18T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029936,
+      "name": "The Pool Hall Junkies",
+      "number": "12305",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029941,
+      "name": "Body English",
+      "number": "12310",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50267822,
+    "week": 4,
+    "type": "EIGHT",
+    "startTime": "2026-06-01T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": null,
+    "location": {
+      "id": 117315,
+      "name": "Garage Rittenhouse",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029935,
+      "name": "Pocket Aces",
+      "number": "12304",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029936,
+      "name": "The Pool Hall Junkies",
+      "number": "12305",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50267829,
+    "week": 5,
+    "type": "EIGHT",
+    "startTime": "2026-06-08T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": null,
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029936,
+      "name": "The Pool Hall Junkies",
+      "number": "12305",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029933,
+      "name": "Scratch Masters",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50267836,
+    "week": 6,
+    "type": "EIGHT",
+    "startTime": "2026-06-15T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": null,
+    "location": {
+      "id": 73693,
+      "name": "Ten Stone Restaurant",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029945,
+      "name": "Local Heroes",
+      "number": "12314",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029936,
+      "name": "The Pool Hall Junkies",
+      "number": "12305",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50267845,
+    "week": 7,
+    "type": "EIGHT",
+    "startTime": "2026-06-29T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": null,
+    "location": {
+      "id": 105059,
+      "name": "BAR - 1309 Sansom",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029940,
+      "name": "High 8alls",
+      "number": "12309",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029936,
+      "name": "The Pool Hall Junkies",
+      "number": "12305",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50267852,
+    "week": 8,
+    "type": "EIGHT",
+    "startTime": "2026-07-06T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": null,
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029936,
+      "name": "The Pool Hall Junkies",
+      "number": "12305",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029938,
+      "name": "Reapers",
+      "number": "12307",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50267861,
+    "week": 9,
+    "type": "EIGHT",
+    "startTime": "2026-07-13T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": null,
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029936,
+      "name": "The Pool Hall Junkies",
+      "number": "12305",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029943,
+      "name": "TopsHots",
+      "number": "12312",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  }
+]

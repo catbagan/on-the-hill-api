@@ -1,0 +1,226 @@
+{
+  "id": 45027980,
+  "startTime": "2024-12-16T19:30:00-05:00",
+  "location": {
+    "id": 105059,
+    "name": "BAR - 1309 Sansom",
+    "__typename": "HostLocation"
+  },
+  "home": {
+    "id": 12564161,
+    "name": "High 8alls",
+    "__typename": "Team"
+  },
+  "away": {
+    "id": 12564162,
+    "name": "Cuedado",
+    "__typename": "Team"
+  },
+  "results": [
+    {
+      "homeAway": "HOME",
+      "matchesWon": 0,
+      "matchesPlayed": 3,
+      "points": {
+        "total": 2,
+        "__typename": "MatchResultPoints"
+      },
+      "scores": [
+        {
+          "id": 109916087,
+          "player": {
+            "id": 88815525,
+            "displayName": "Chris Nevatt",
+            "__typename": "EightBallPlayer"
+          },
+          "matchPositionNumber": 1,
+          "playerPosition": 1,
+          "skillLevel": 5,
+          "innings": 0,
+          "defensiveShots": 0,
+          "eightBallWins": 1,
+          "eightOnBreak": 0,
+          "eightBallBreakAndRun": 0,
+          "nineBallPoints": null,
+          "nineOnSnap": null,
+          "nineBallBreakAndRun": null,
+          "nineBallMatchPointsEarned": null,
+          "mastersEightBallWins": null,
+          "mastersNineBallWins": null,
+          "winLoss": "L",
+          "matchForfeited": false,
+          "doublesMatch": false,
+          "dateTimeStamp": "2024-12-18T19:22:15+00:00",
+          "teamSlot": "7",
+          "eightBallMatchPointsEarned": 0,
+          "incompleteMatch": false,
+          "__typename": "MatchScore"
+        },
+        {
+          "id": 109916089,
+          "player": {
+            "id": 88815524,
+            "displayName": "Andrew Trojan",
+            "__typename": "EightBallPlayer"
+          },
+          "matchPositionNumber": 2,
+          "playerPosition": 1,
+          "skillLevel": 5,
+          "innings": 0,
+          "defensiveShots": 0,
+          "eightBallWins": 2,
+          "eightOnBreak": 1,
+          "eightBallBreakAndRun": 0,
+          "nineBallPoints": null,
+          "nineOnSnap": null,
+          "nineBallBreakAndRun": null,
+          "nineBallMatchPointsEarned": null,
+          "mastersEightBallWins": null,
+          "mastersNineBallWins": null,
+          "winLoss": "L",
+          "matchForfeited": false,
+          "doublesMatch": false,
+          "dateTimeStamp": "2024-12-18T19:22:15+00:00",
+          "teamSlot": "7",
+          "eightBallMatchPointsEarned": 0,
+          "incompleteMatch": false,
+          "__typename": "MatchScore"
+        },
+        {
+          "id": 109916092,
+          "player": {
+            "id": 88815528,
+            "displayName": "Freddy Hertan",
+            "__typename": "EightBallPlayer"
+          },
+          "matchPositionNumber": 3,
+          "playerPosition": 2,
+          "skillLevel": 4,
+          "innings": 0,
+          "defensiveShots": 0,
+          "eightBallWins": 0,
+          "eightOnBreak": 0,
+          "eightBallBreakAndRun": 0,
+          "nineBallPoints": null,
+          "nineOnSnap": null,
+          "nineBallBreakAndRun": null,
+          "nineBallMatchPointsEarned": null,
+          "mastersEightBallWins": null,
+          "mastersNineBallWins": null,
+          "winLoss": "L",
+          "matchForfeited": false,
+          "doublesMatch": false,
+          "dateTimeStamp": "2024-12-18T19:22:15+00:00",
+          "teamSlot": "7",
+          "eightBallMatchPointsEarned": 0,
+          "incompleteMatch": false,
+          "__typename": "MatchScore"
+        }
+      ],
+      "__typename": "MatchResult"
+    },
+    {
+      "homeAway": "AWAY",
+      "matchesWon": 3,
+      "matchesPlayed": 3,
+      "points": {
+        "total": 9,
+        "__typename": "MatchResultPoints"
+      },
+      "scores": [
+        {
+          "id": 109916090,
+          "player": {
+            "id": 88815529,
+            "displayName": "Doug Sokol",
+            "__typename": "EightBallPlayer"
+          },
+          "matchPositionNumber": 2,
+          "playerPosition": 2,
+          "skillLevel": 5,
+          "innings": 0,
+          "defensiveShots": 0,
+          "eightBallWins": 4,
+          "eightOnBreak": 0,
+          "eightBallBreakAndRun": 0,
+          "nineBallPoints": null,
+          "nineOnSnap": null,
+          "nineBallBreakAndRun": null,
+          "nineBallMatchPointsEarned": null,
+          "mastersEightBallWins": null,
+          "mastersNineBallWins": null,
+          "winLoss": "W",
+          "matchForfeited": false,
+          "doublesMatch": false,
+          "dateTimeStamp": "2024-12-18T19:22:15+00:00",
+          "teamSlot": "7",
+          "eightBallMatchPointsEarned": 2,
+          "incompleteMatch": false,
+          "__typename": "MatchScore"
+        },
+        {
+          "id": 109916091,
+          "player": {
+            "id": 88815536,
+            "displayName": "Autumn Sisti",
+            "__typename": "EightBallPlayer"
+          },
+          "matchPositionNumber": 3,
+          "playerPosition": 1,
+          "skillLevel": 4,
+          "innings": 0,
+          "defensiveShots": 0,
+          "eightBallWins": 3,
+          "eightOnBreak": 0,
+          "eightBallBreakAndRun": 0,
+          "nineBallPoints": null,
+          "nineOnSnap": null,
+          "nineBallBreakAndRun": null,
+          "nineBallMatchPointsEarned": null,
+          "mastersEightBallWins": null,
+          "mastersNineBallWins": null,
+          "winLoss": "W",
+          "matchForfeited": false,
+          "doublesMatch": false,
+          "dateTimeStamp": "2024-12-18T19:22:15+00:00",
+          "teamSlot": "7",
+          "eightBallMatchPointsEarned": 3,
+          "incompleteMatch": false,
+          "__typename": "MatchScore"
+        },
+        {
+          "id": 109916088,
+          "player": {
+            "id": 88815531,
+            "displayName": "Taylor Wire",
+            "__typename": "EightBallPlayer"
+          },
+          "matchPositionNumber": 1,
+          "playerPosition": 2,
+          "skillLevel": 5,
+          "innings": 0,
+          "defensiveShots": 0,
+          "eightBallWins": 4,
+          "eightOnBreak": 0,
+          "eightBallBreakAndRun": 0,
+          "nineBallPoints": null,
+          "nineOnSnap": null,
+          "nineBallBreakAndRun": null,
+          "nineBallMatchPointsEarned": null,
+          "mastersEightBallWins": null,
+          "mastersNineBallWins": null,
+          "winLoss": "W",
+          "matchForfeited": false,
+          "doublesMatch": false,
+          "dateTimeStamp": "2024-12-18T19:22:15+00:00",
+          "teamSlot": "7",
+          "eightBallMatchPointsEarned": 2,
+          "incompleteMatch": false,
+          "__typename": "MatchScore"
+        }
+      ],
+      "__typename": "MatchResult"
+    }
+  ],
+  "__typename": "Match"
+}

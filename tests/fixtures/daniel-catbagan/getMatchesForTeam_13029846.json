@@ -1,0 +1,387 @@
+[
+  {
+    "id": 50414787,
+    "week": 1,
+    "type": "NINE",
+    "startTime": "2026-05-05T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029845,
+      "name": "It Is All About The Green",
+      "number": "13201",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029846,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50414796,
+    "week": 2,
+    "type": "NINE",
+    "startTime": "2026-05-12T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029846,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029854,
+      "name": "Shots at the Point",
+      "number": "13205",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50414799,
+    "week": 3,
+    "type": "NINE",
+    "startTime": "2026-05-19T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 110044,
+      "name": "Kostas Restaurant",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029851,
+      "name": "The Busboys",
+      "number": "13209",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029846,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50414804,
+    "week": 4,
+    "type": "NINE",
+    "startTime": "2026-05-26T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 117315,
+      "name": "Garage Rittenhouse",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029847,
+      "name": "Shoot Pool not People",
+      "number": "13203",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029846,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50414811,
+    "week": 5,
+    "type": "NINE",
+    "startTime": "2026-06-02T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029846,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029852,
+      "name": "The Lady & Her Aces",
+      "number": "13208",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50414814,
+    "week": 6,
+    "type": "NINE",
+    "startTime": "2026-06-09T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029846,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029849,
+      "name": "Goodtime",
+      "number": "13207",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50414820,
+    "week": 7,
+    "type": "NINE",
+    "startTime": "2026-06-16T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35740,
+      "name": "5 Points Bar",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029853,
+      "name": "Cue the Excuses",
+      "number": "13206",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029846,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50414823,
+    "week": 8,
+    "type": "NINE",
+    "startTime": "2026-06-23T19:30:00-04:00",
+    "isBye": true,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029846,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029855,
+      "name": "Bye",
+      "number": "13210",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50414831,
+    "week": 9,
+    "type": "NINE",
+    "startTime": "2026-06-30T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 117315,
+      "name": "Garage Rittenhouse",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029848,
+      "name": "Split Shots",
+      "number": "13204",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029846,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50414832,
+    "week": 10,
+    "type": "NINE",
+    "startTime": "2026-07-07T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029846,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029845,
+      "name": "It Is All About The Green",
+      "number": "13201",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50414841,
+    "week": 11,
+    "type": "NINE",
+    "startTime": "2026-07-14T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35740,
+      "name": "5 Points Bar",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029854,
+      "name": "Shots at the Point",
+      "number": "13205",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13029846,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  }
+]

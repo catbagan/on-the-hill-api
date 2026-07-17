@@ -1,0 +1,632 @@
+[
+  {
+    "id": 44930860,
+    "week": 1,
+    "type": "EIGHT",
+    "startTime": "2025-01-08T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652327,
+      "name": "Pocket Pals",
+      "number": "14507",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44930861,
+    "week": 2,
+    "type": "EIGHT",
+    "startTime": "2025-01-15T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652187,
+      "name": "Pool Tang Clan",
+      "number": "14501",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44930866,
+    "week": 3,
+    "type": "EIGHT",
+    "startTime": "2025-01-22T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 73693,
+      "name": "Ten Stone Restaurant",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652213,
+      "name": "Miscues",
+      "number": "14503",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44930870,
+    "week": 4,
+    "type": "EIGHT",
+    "startTime": "2025-01-29T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652125,
+      "name": "All We Do is Win",
+      "number": "14505",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44930876,
+    "week": 5,
+    "type": "EIGHT",
+    "startTime": "2025-02-05T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652126,
+      "name": "Yo Adrian!",
+      "number": "14506",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44930878,
+    "week": 6,
+    "type": "EIGHT",
+    "startTime": "2025-02-12T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652188,
+      "name": "Green Street Hooligans",
+      "number": "14502",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44930884,
+    "week": 7,
+    "type": "EIGHT",
+    "startTime": "2025-02-19T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652214,
+      "name": "Destination Dogs",
+      "number": "14504",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44930888,
+    "week": 8,
+    "type": "EIGHT",
+    "startTime": "2025-02-26T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652327,
+      "name": "Pocket Pals",
+      "number": "14507",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44930889,
+    "week": 9,
+    "type": "EIGHT",
+    "startTime": "2025-03-05T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652187,
+      "name": "Pool Tang Clan",
+      "number": "14501",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44930894,
+    "week": 10,
+    "type": "EIGHT",
+    "startTime": "2025-03-12T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652213,
+      "name": "Miscues",
+      "number": "14503",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44930898,
+    "week": 11,
+    "type": "EIGHT",
+    "startTime": "2025-03-19T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 115617,
+      "name": "Craft Hall",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652125,
+      "name": "All We Do is Win",
+      "number": "14505",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44930904,
+    "week": 12,
+    "type": "EIGHT",
+    "startTime": "2025-03-26T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 115617,
+      "name": "Craft Hall",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652126,
+      "name": "Yo Adrian!",
+      "number": "14506",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44930906,
+    "week": 13,
+    "type": "EIGHT",
+    "startTime": "2025-04-02T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652188,
+      "name": "Green Street Hooligans",
+      "number": "14502",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44930912,
+    "week": 14,
+    "type": "EIGHT",
+    "startTime": "2025-04-09T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 73693,
+      "name": "Ten Stone Restaurant",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652214,
+      "name": "Destination Dogs",
+      "number": "14504",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44930916,
+    "week": 15,
+    "type": "EIGHT",
+    "startTime": "2025-04-16T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652327,
+      "name": "Pocket Pals",
+      "number": "14507",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44930917,
+    "week": 16,
+    "type": "EIGHT",
+    "startTime": "2025-04-23T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652187,
+      "name": "Pool Tang Clan",
+      "number": "14501",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 46558649,
+    "week": 17,
+    "type": "EIGHT",
+    "startTime": "2025-04-30T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": true,
+    "description": "",
+    "location": {
+      "id": 115617,
+      "name": "Craft Hall",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652125,
+      "name": "All We Do is Win",
+      "number": "14505",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652328,
+      "name": "Cueless",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 46558650,
+    "week": 17,
+    "type": "EIGHT",
+    "startTime": "2025-04-30T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": true,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652327,
+      "name": "Pocket Pals",
+      "number": "14507",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652214,
+      "name": "Destination Dogs",
+      "number": "14504",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  }
+]

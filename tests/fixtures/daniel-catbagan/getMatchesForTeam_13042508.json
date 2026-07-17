@@ -1,0 +1,387 @@
+[
+  {
+    "id": 50542412,
+    "week": 1,
+    "type": "NINE",
+    "startTime": "2026-05-05T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91303,
+      "name": "Buffalo Billiards",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13030079,
+      "name": "Cut Shots",
+      "number": "13307",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13042508,
+      "name": "Buffalo Soldiers",
+      "number": "13308",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50542417,
+    "week": 2,
+    "type": "NINE",
+    "startTime": "2026-05-12T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91303,
+      "name": "Buffalo Billiards",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13042508,
+      "name": "Buffalo Soldiers",
+      "number": "13308",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13030075,
+      "name": "Grumpy's Tavern",
+      "number": "13301",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50542428,
+    "week": 3,
+    "type": "NINE",
+    "startTime": "2026-05-19T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 108311,
+      "name": "Vibe Lounge",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13029850,
+      "name": "South Street Shootas",
+      "number": "13311",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13042508,
+      "name": "Buffalo Soldiers",
+      "number": "13308",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50542433,
+    "week": 4,
+    "type": "NINE",
+    "startTime": "2026-05-26T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91303,
+      "name": "Buffalo Billiards",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13042508,
+      "name": "Buffalo Soldiers",
+      "number": "13308",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13033795,
+      "name": "Melo's Fellows",
+      "number": "13305",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50542438,
+    "week": 5,
+    "type": "NINE",
+    "startTime": "2026-06-02T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 104318,
+      "name": "Watkins Drinkery",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13030082,
+      "name": "Nothing's Free",
+      "number": "13309",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13042508,
+      "name": "Buffalo Soldiers",
+      "number": "13308",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50542443,
+    "week": 6,
+    "type": "NINE",
+    "startTime": "2026-06-09T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91303,
+      "name": "Buffalo Billiards",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13042508,
+      "name": "Buffalo Soldiers",
+      "number": "13308",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13030077,
+      "name": "9th Street Mechanics",
+      "number": "13303",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50542450,
+    "week": 7,
+    "type": "NINE",
+    "startTime": "2026-06-16T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91303,
+      "name": "Buffalo Billiards",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13042508,
+      "name": "Buffalo Soldiers",
+      "number": "13308",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13030076,
+      "name": "Smooth Operators",
+      "number": "13302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50542457,
+    "week": 8,
+    "type": "NINE",
+    "startTime": "2026-06-23T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91303,
+      "name": "Buffalo Billiards",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13042508,
+      "name": "Buffalo Soldiers",
+      "number": "13308",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13048093,
+      "name": "Ninety-9 Problem",
+      "number": "13312",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50542463,
+    "week": 9,
+    "type": "NINE",
+    "startTime": "2026-06-30T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91303,
+      "name": "Buffalo Billiards",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13030080,
+      "name": "Deep Cutz",
+      "number": "13306",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13042508,
+      "name": "Buffalo Soldiers",
+      "number": "13308",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50542469,
+    "week": 10,
+    "type": "NINE",
+    "startTime": "2026-07-07T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91303,
+      "name": "Buffalo Billiards",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13042508,
+      "name": "Buffalo Soldiers",
+      "number": "13308",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13048098,
+      "name": "Bar Rules",
+      "number": "13310",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50542475,
+    "week": 11,
+    "type": "NINE",
+    "startTime": "2026-07-14T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 105417,
+      "name": "Garage",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13030083,
+      "name": "Rack n Roll",
+      "number": "13304",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13042508,
+      "name": "Buffalo Soldiers",
+      "number": "13308",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  }
+]

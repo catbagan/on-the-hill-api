@@ -1,0 +1,44 @@
+{
+  "id": 44057831,
+  "startTime": "2024-10-22T19:30:00-04:00",
+  "location": {
+    "id": 87357,
+    "name": "No Match This Week",
+    "__typename": "HostLocation"
+  },
+  "home": {
+    "id": 12564064,
+    "name": "Bye",
+    "__typename": "Team"
+  },
+  "away": {
+    "id": 12564061,
+    "name": "The Jokers",
+    "__typename": "Team"
+  },
+  "results": [
+    {
+      "homeAway": "HOME",
+      "matchesWon": 0,
+      "matchesPlayed": 0,
+      "points": {
+        "total": 0,
+        "__typename": "MatchResultPoints"
+      },
+      "scores": [],
+      "__typename": "MatchResult"
+    },
+    {
+      "homeAway": "AWAY",
+      "matchesWon": 0,
+      "matchesPlayed": 0,
+      "points": {
+        "total": 85,
+        "__typename": "MatchResultPoints"
+      },
+      "scores": [],
+      "__typename": "MatchResult"
+    }
+  ],
+  "__typename": "Match"
+}

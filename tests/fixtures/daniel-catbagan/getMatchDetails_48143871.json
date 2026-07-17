@@ -1,0 +1,44 @@
+{
+  "id": 48143871,
+  "startTime": "2025-11-24T19:30:00-05:00",
+  "location": {
+    "id": 35782,
+    "name": "Green Room",
+    "__typename": "HostLocation"
+  },
+  "home": {
+    "id": 12822007,
+    "name": "The Pool Hall Junkies",
+    "__typename": "Team"
+  },
+  "away": {
+    "id": 12822018,
+    "name": "Bye",
+    "__typename": "Team"
+  },
+  "results": [
+    {
+      "homeAway": "HOME",
+      "matchesWon": 0,
+      "matchesPlayed": 0,
+      "points": {
+        "total": 10,
+        "__typename": "MatchResultPoints"
+      },
+      "scores": [],
+      "__typename": "MatchResult"
+    },
+    {
+      "homeAway": "AWAY",
+      "matchesWon": 0,
+      "matchesPlayed": 0,
+      "points": {
+        "total": 0,
+        "__typename": "MatchResultPoints"
+      },
+      "scores": [],
+      "__typename": "MatchResult"
+    }
+  ],
+  "__typename": "Match"
+}

@@ -1,0 +1,597 @@
+[
+  {
+    "id": 47805745,
+    "week": 1,
+    "type": "NINE",
+    "startTime": "2025-09-02T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12821919,
+      "name": "It Is All About The Green",
+      "number": "13201",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12859315,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 47805754,
+    "week": 2,
+    "type": "NINE",
+    "startTime": "2025-09-09T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12859315,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12821921,
+      "name": "Goodtime",
+      "number": "13205",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 47805757,
+    "week": 3,
+    "type": "NINE",
+    "startTime": "2025-09-16T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 117781,
+      "name": "Misconduct",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12821924,
+      "name": "The Busboys",
+      "number": "13209",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12859315,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 47805762,
+    "week": 4,
+    "type": "NINE",
+    "startTime": "2025-09-23T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 117315,
+      "name": "Garage Rittenhouse",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12821930,
+      "name": "Shoot Pool not People",
+      "number": "13203",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12859315,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 47805769,
+    "week": 5,
+    "type": "NINE",
+    "startTime": "2025-09-30T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12859315,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12821918,
+      "name": "Shots at the Point",
+      "number": "13208",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 47805772,
+    "week": 6,
+    "type": "NINE",
+    "startTime": "2025-10-07T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12859315,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12821917,
+      "name": "South Street Shootas",
+      "number": "13207",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 47805778,
+    "week": 7,
+    "type": "NINE",
+    "startTime": "2025-10-14T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 79360,
+      "name": "Goodtime Tavern",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12821922,
+      "name": "Remember the Goodtimes",
+      "number": "13206",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12859315,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 47805781,
+    "week": 8,
+    "type": "NINE",
+    "startTime": "2025-10-21T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12859315,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12821923,
+      "name": "The Lady & Her Aces",
+      "number": "13210",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 47805789,
+    "week": 9,
+    "type": "NINE",
+    "startTime": "2025-10-28T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 117315,
+      "name": "Garage Rittenhouse",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12821920,
+      "name": "All in the Game",
+      "number": "13204",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12859315,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 47805790,
+    "week": 10,
+    "type": "NINE",
+    "startTime": "2025-11-04T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12859315,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12821919,
+      "name": "It Is All About The Green",
+      "number": "13201",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 47805799,
+    "week": 11,
+    "type": "NINE",
+    "startTime": "2025-11-11T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 79360,
+      "name": "Goodtime Tavern",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12821921,
+      "name": "Goodtime",
+      "number": "13205",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12859315,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 47805802,
+    "week": 12,
+    "type": "NINE",
+    "startTime": "2025-11-18T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12859315,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12821924,
+      "name": "The Busboys",
+      "number": "13209",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 47805807,
+    "week": 13,
+    "type": "NINE",
+    "startTime": "2025-11-25T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12859315,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12821930,
+      "name": "Shoot Pool not People",
+      "number": "13203",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 47805814,
+    "week": 14,
+    "type": "NINE",
+    "startTime": "2025-12-02T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35740,
+      "name": "5 Points Bar",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12821918,
+      "name": "Shots at the Point",
+      "number": "13208",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12859315,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 48752453,
+    "week": 15,
+    "type": "NINE",
+    "startTime": "2025-12-09T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 108311,
+      "name": "Sal's His & Hers",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12821917,
+      "name": "South Street Shootas",
+      "number": "13207",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12859315,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 48904094,
+    "week": 16,
+    "type": "NINE",
+    "startTime": "2025-12-16T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": true,
+    "description": "",
+    "location": {
+      "id": 117781,
+      "name": "Misconduct",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12821923,
+      "name": "The Lady & Her Aces",
+      "number": "13210",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12859315,
+      "name": "The Wrong Pockets",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 48904093,
+    "week": 16,
+    "type": "NINE",
+    "startTime": "2025-12-16T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": true,
+    "description": "",
+    "location": {
+      "id": 35740,
+      "name": "5 Points Bar",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12821918,
+      "name": "Shots at the Point",
+      "number": "13208",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12821920,
+      "name": "All in the Game",
+      "number": "13204",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  }
+]

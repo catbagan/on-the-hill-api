@@ -1,0 +1,702 @@
+[
+  {
+    "id": 44929386,
+    "week": 1,
+    "type": "EIGHT",
+    "startTime": "2025-01-06T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652185,
+      "name": "The Green Womb",
+      "number": "12301",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652186,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44929397,
+    "week": 2,
+    "type": "EIGHT",
+    "startTime": "2025-01-13T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652186,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652325,
+      "name": "North Bowl",
+      "number": "12311",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44929402,
+    "week": 3,
+    "type": "EIGHT",
+    "startTime": "2025-01-20T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91303,
+      "name": "Buffalo Billiards",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652310,
+      "name": "Scratch Masters",
+      "number": "12305",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652186,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44929407,
+    "week": 4,
+    "type": "EIGHT",
+    "startTime": "2025-01-27T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652186,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652127,
+      "name": "High 8alls",
+      "number": "12309",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44929412,
+    "week": 5,
+    "type": "EIGHT",
+    "startTime": "2025-02-03T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35777,
+      "name": "Druid's Keep",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652181,
+      "name": "Midnight Marauders",
+      "number": "12303",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652186,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44929417,
+    "week": 6,
+    "type": "EIGHT",
+    "startTime": "2025-02-10T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652186,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652211,
+      "name": "Las Vegas Lounge",
+      "number": "12307",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44929425,
+    "week": 7,
+    "type": "EIGHT",
+    "startTime": "2025-02-17T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 73693,
+      "name": "Ten Stone Restaurant",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652212,
+      "name": "Local Heroes",
+      "number": "12308",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652186,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44929431,
+    "week": 8,
+    "type": "EIGHT",
+    "startTime": "2025-02-24T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91290,
+      "name": "Tops",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652144,
+      "name": "Cuedado",
+      "number": "12310",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652186,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44929437,
+    "week": 9,
+    "type": "EIGHT",
+    "startTime": "2025-03-03T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652186,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652182,
+      "name": "Reapers",
+      "number": "12304",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44929443,
+    "week": 10,
+    "type": "EIGHT",
+    "startTime": "2025-03-10T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652186,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652311,
+      "name": "Dead Rabbits",
+      "number": "12306",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44929449,
+    "week": 11,
+    "type": "EIGHT",
+    "startTime": "2025-03-17T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652326,
+      "name": "Pocket Aces",
+      "number": "12312",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652186,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44929452,
+    "week": 12,
+    "type": "EIGHT",
+    "startTime": "2025-03-24T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652186,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652185,
+      "name": "The Green Womb",
+      "number": "12301",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44929463,
+    "week": 13,
+    "type": "EIGHT",
+    "startTime": "2025-03-31T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652325,
+      "name": "North Bowl",
+      "number": "12311",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652186,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44929468,
+    "week": 14,
+    "type": "EIGHT",
+    "startTime": "2025-04-07T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652186,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652310,
+      "name": "Scratch Masters",
+      "number": "12305",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44929473,
+    "week": 15,
+    "type": "EIGHT",
+    "startTime": "2025-04-14T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 105059,
+      "name": "BAR - 1309 Sansom",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652127,
+      "name": "High 8alls",
+      "number": "12309",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652186,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44929478,
+    "week": 16,
+    "type": "EIGHT",
+    "startTime": "2025-04-21T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652186,
+      "name": "The Pool Hall Junkies",
+      "number": "12302",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652181,
+      "name": "Midnight Marauders",
+      "number": "12303",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 46558540,
+    "week": 17,
+    "type": "EIGHT",
+    "startTime": "2025-04-28T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": true,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652326,
+      "name": "Pocket Aces",
+      "number": "12312",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652185,
+      "name": "The Green Womb",
+      "number": "12301",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 46558541,
+    "week": 17,
+    "type": "EIGHT",
+    "startTime": "2025-04-28T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": true,
+    "description": "",
+    "location": {
+      "id": 105059,
+      "name": "BAR - 1309 Sansom",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652127,
+      "name": "High 8alls",
+      "number": "12309",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652181,
+      "name": "Midnight Marauders",
+      "number": "12303",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 46558542,
+    "week": 17,
+    "type": "EIGHT",
+    "startTime": "2025-04-28T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": true,
+    "description": "",
+    "location": {
+      "id": 35777,
+      "name": "Druid's Keep",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652182,
+      "name": "Reapers",
+      "number": "12304",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652144,
+      "name": "Cuedado",
+      "number": "12310",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 46558543,
+    "week": 17,
+    "type": "EIGHT",
+    "startTime": "2025-04-28T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": true,
+    "description": "",
+    "location": {
+      "id": 73693,
+      "name": "Ten Stone Restaurant",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12652212,
+      "name": "Local Heroes",
+      "number": "12308",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12652325,
+      "name": "North Bowl",
+      "number": "12311",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  }
+]

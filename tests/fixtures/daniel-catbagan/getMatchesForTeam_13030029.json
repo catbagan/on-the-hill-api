@@ -1,0 +1,387 @@
+[
+  {
+    "id": 50429732,
+    "week": 1,
+    "type": "EIGHT",
+    "startTime": "2026-05-06T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13030029,
+      "name": "Cueless",
+      "number": "14509",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13033761,
+      "name": "The Pho Cues",
+      "number": "14510",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50429734,
+    "week": 2,
+    "type": "EIGHT",
+    "startTime": "2026-05-13T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 115617,
+      "name": "Craft Hall",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13030025,
+      "name": "Yo Adrian!",
+      "number": "14504",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13030029,
+      "name": "Cueless",
+      "number": "14509",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50429740,
+    "week": 3,
+    "type": "EIGHT",
+    "startTime": "2026-05-20T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13030029,
+      "name": "Cueless",
+      "number": "14509",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13030023,
+      "name": "Green Street Hooligans",
+      "number": "14502",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50429747,
+    "week": 4,
+    "type": "EIGHT",
+    "startTime": "2026-05-27T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13030029,
+      "name": "Cueless",
+      "number": "14509",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13030031,
+      "name": "Dude, Where's My Captain",
+      "number": "14508",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50429751,
+    "week": 5,
+    "type": "EIGHT",
+    "startTime": "2026-06-03T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 115617,
+      "name": "Craft Hall",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13030024,
+      "name": "Racky Ballboa",
+      "number": "14503",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13030029,
+      "name": "Cueless",
+      "number": "14509",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50429753,
+    "week": 6,
+    "type": "EIGHT",
+    "startTime": "2026-06-10T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13030029,
+      "name": "Cueless",
+      "number": "14509",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13030027,
+      "name": "Miscues",
+      "number": "14506",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50429758,
+    "week": 7,
+    "type": "EIGHT",
+    "startTime": "2026-06-17T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13030022,
+      "name": "Pool Tang Clan",
+      "number": "14501",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13030029,
+      "name": "Cueless",
+      "number": "14509",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50429765,
+    "week": 8,
+    "type": "EIGHT",
+    "startTime": "2026-06-24T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13030029,
+      "name": "Cueless",
+      "number": "14509",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13030030,
+      "name": "South Street Shootas",
+      "number": "14507",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50429771,
+    "week": 9,
+    "type": "EIGHT",
+    "startTime": "2026-07-01T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 73693,
+      "name": "Ten Stone Restaurant",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13030026,
+      "name": "Destination Dogs",
+      "number": "14505",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13030029,
+      "name": "Cueless",
+      "number": "14509",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50429777,
+    "week": 10,
+    "type": "EIGHT",
+    "startTime": "2026-07-08T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 73692,
+      "name": "Tattooed Mom",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13033761,
+      "name": "The Pho Cues",
+      "number": "14510",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13030029,
+      "name": "Cueless",
+      "number": "14509",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 50429779,
+    "week": 11,
+    "type": "EIGHT",
+    "startTime": "2026-07-15T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 77645,
+      "name": "North Bowl",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 13030029,
+      "name": "Cueless",
+      "number": "14509",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 13030025,
+      "name": "Yo Adrian!",
+      "number": "14504",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  }
+]

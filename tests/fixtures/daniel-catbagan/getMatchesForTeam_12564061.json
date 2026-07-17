@@ -1,0 +1,597 @@
+[
+  {
+    "id": 44057803,
+    "week": 1,
+    "type": "NINE",
+    "startTime": "2024-09-03T19:30:00-04:00",
+    "isBye": true,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91290,
+      "name": "Tops",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564061,
+      "name": "The Jokers",
+      "number": "13207",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564064,
+      "name": "Bye",
+      "number": "13208",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44057807,
+    "week": 2,
+    "type": "NINE",
+    "startTime": "2024-09-10T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91290,
+      "name": "Tops",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564061,
+      "name": "The Jokers",
+      "number": "13207",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564049,
+      "name": "Shots at the Point",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44057810,
+    "week": 3,
+    "type": "NINE",
+    "startTime": "2024-09-17T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564055,
+      "name": "All in the Game",
+      "number": "13204",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564061,
+      "name": "The Jokers",
+      "number": "13207",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44057814,
+    "week": 4,
+    "type": "NINE",
+    "startTime": "2024-09-24T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91290,
+      "name": "Tops",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564061,
+      "name": "The Jokers",
+      "number": "13207",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564057,
+      "name": "Let the Goodtimes Roll",
+      "number": "13206",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44057817,
+    "week": 5,
+    "type": "NINE",
+    "startTime": "2024-10-01T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91290,
+      "name": "Tops",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564061,
+      "name": "The Jokers",
+      "number": "13207",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564056,
+      "name": "Goodtime",
+      "number": "13205",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44057820,
+    "week": 6,
+    "type": "NINE",
+    "startTime": "2024-10-08T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35740,
+      "name": "5 Points Bar",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564048,
+      "name": "Rack'em",
+      "number": "13201",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564061,
+      "name": "The Jokers",
+      "number": "13207",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44057826,
+    "week": 7,
+    "type": "NINE",
+    "startTime": "2024-10-15T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91290,
+      "name": "Tops",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564061,
+      "name": "The Jokers",
+      "number": "13207",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564054,
+      "name": "It Is All About The Green",
+      "number": "13203",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44057831,
+    "week": 8,
+    "type": "NINE",
+    "startTime": "2024-10-22T19:30:00-04:00",
+    "isBye": true,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 87357,
+      "name": "No Match This Week",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564064,
+      "name": "Bye",
+      "number": "13208",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564061,
+      "name": "The Jokers",
+      "number": "13207",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44057835,
+    "week": 9,
+    "type": "NINE",
+    "startTime": "2024-10-29T19:30:00-04:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35740,
+      "name": "5 Points Bar",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564049,
+      "name": "Shots at the Point",
+      "number": "13202",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564061,
+      "name": "The Jokers",
+      "number": "13207",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44057838,
+    "week": 10,
+    "type": "NINE",
+    "startTime": "2024-11-05T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91290,
+      "name": "Tops",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564061,
+      "name": "The Jokers",
+      "number": "13207",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564055,
+      "name": "All in the Game",
+      "number": "13204",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44057842,
+    "week": 11,
+    "type": "NINE",
+    "startTime": "2024-11-12T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 79360,
+      "name": "Goodtime Tavern",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564057,
+      "name": "Let the Goodtimes Roll",
+      "number": "13206",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564061,
+      "name": "The Jokers",
+      "number": "13207",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44057845,
+    "week": 12,
+    "type": "NINE",
+    "startTime": "2024-11-19T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 79360,
+      "name": "Goodtime Tavern",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564056,
+      "name": "Goodtime",
+      "number": "13205",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564061,
+      "name": "The Jokers",
+      "number": "13207",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44057848,
+    "week": 13,
+    "type": "NINE",
+    "startTime": "2024-11-26T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91290,
+      "name": "Tops",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564061,
+      "name": "The Jokers",
+      "number": "13207",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564048,
+      "name": "Rack'em",
+      "number": "13201",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44057854,
+    "week": 14,
+    "type": "NINE",
+    "startTime": "2024-12-03T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564054,
+      "name": "It Is All About The Green",
+      "number": "13203",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564061,
+      "name": "The Jokers",
+      "number": "13207",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 44057859,
+    "week": 15,
+    "type": "NINE",
+    "startTime": "2024-12-10T19:30:00-05:00",
+    "isBye": true,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": false,
+    "description": "",
+    "location": {
+      "id": 91290,
+      "name": "Tops",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564061,
+      "name": "The Jokers",
+      "number": "13207",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564064,
+      "name": "Bye",
+      "number": "13208",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 45027988,
+    "week": 16,
+    "type": "NINE",
+    "startTime": "2024-12-17T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": true,
+    "isPaid": false,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": true,
+    "description": "",
+    "location": {
+      "id": 91290,
+      "name": "Tops",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564061,
+      "name": "The Jokers",
+      "number": "13207",
+      "isMine": true,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564048,
+      "name": "Rack'em",
+      "number": "13201",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  },
+  {
+    "id": 45027989,
+    "week": 16,
+    "type": "NINE",
+    "startTime": "2024-12-17T19:30:00-05:00",
+    "isBye": false,
+    "status": "COMPLETED",
+    "scoresheet": null,
+    "isMine": false,
+    "isPaid": null,
+    "isScored": true,
+    "isFinalized": true,
+    "isPlayoff": true,
+    "description": "",
+    "location": {
+      "id": 35782,
+      "name": "Green Room",
+      "__typename": "HostLocation"
+    },
+    "home": {
+      "id": 12564054,
+      "name": "It Is All About The Green",
+      "number": "13203",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "away": {
+      "id": 12564055,
+      "name": "All in the Game",
+      "number": "13204",
+      "isMine": false,
+      "__typename": "Team"
+    },
+    "__typename": "Match"
+  }
+]
