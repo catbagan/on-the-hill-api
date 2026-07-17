@@ -432,9 +432,7 @@ function writeReportToCSV(report: PlayerReport, playerName: string): void {
   csvLines.push("");
 
   // By Skill Difference
-  csvLines.push(
-    "Performance by Skill Difference (Opp Skill - Your Skill)",
-  );
+  csvLines.push("Performance by Skill Difference (Opp Skill - Your Skill)");
   csvLines.push("Skill Difference,Wins,Losses,Win Percentage");
   Object.entries(report.bySkillDifference)
     .sort(([a], [b]) => Number(b) - Number(a))

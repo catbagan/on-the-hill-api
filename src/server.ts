@@ -597,8 +597,7 @@ export function createApp(config: AppConfig) {
       if (gameType && gameType !== "EIGHT_BALL" && gameType !== "NINE_BALL") {
         return c.json(
           {
-            error:
-              "gameType must be 'EIGHT_BALL' or 'NINE_BALL'",
+            error: "gameType must be 'EIGHT_BALL' or 'NINE_BALL'",
           },
           400,
         );
