@@ -35,7 +35,7 @@ body:json {
     {
       "operationName": "teamSchedule",
       "variables": {
-        "id": {{test_team_id}}
+        "id": 12859315
       },
       "query": "query teamSchedule($id: Int!) {\n  team(id: $id) {\n    id\n    sessionBonusPoints\n    sessionPoints\n    sessionTotalPoints\n    division {\n      id\n      isTournament\n      __typename\n    }\n    matches(unscheduled: true) {\n      id\n      week\n      type\n      startTime\n      isBye\n      status\n      scoresheet\n      isMine\n      isPaid\n      isScored\n      isFinalized\n      isPlayoff\n      description\n      location {\n        id\n        name\n        __typename\n      }\n      home {\n        id\n        name\n        number\n        isMine\n        __typename\n      }\n      away {\n        id\n        name\n        number\n        isMine\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
     }

@@ -654,6 +654,107 @@ export function createApp(config: AppConfig) {
     }
   });
 
+  app.post("/report/nine/list", authMiddleware(), async (c) => {
+    const startTime = Date.now();
+    const userId = c.get("userId");
+    const requestId = c.get("requestId") as string | undefined;
+
+    try {
+      const body = await c.req.json();
+      const names = body.names;
+
+      if (!Array.isArray(names) || names.length === 0) {
+        return c.json(
+          {
+            error: "names is required and must be a non-empty array of strings",
+          },
+          400,
+        );
+      }
+
+      const invalidNames = names.filter(
+        (n: any) => typeof n !== "string" || n.trim().length < 2,
+      );
+      if (invalidNames.length > 0) {
+        return c.json(
+          {
+            error: "each name must be a string with at least 2 characters",
+          },
+          400,
+        );
+      }
+
+      logRequest("report_nine_list_start", {
+        endpoint: "/report/nine/list",
+        userId,
+        requestId,
+        nameCount: names.length,
+      });
+
+      const results = await Promise.all(
+        names.map(async (rawName: string) => {
+          const name = rawName.trim();
+          try {
+            const searchResult = await handlePlayerSearch(name, dataReader);
+            if (!searchResult) {
+              return { name, error: "No player found" };
+            }
+            const { memberNumber, firstName, lastName } = searchResult.player;
+            const fullName = `${firstName} ${lastName}`.trim();
+            const report = await handleReportGet(
+              memberNumber,
+              dataReader,
+              undefined,
+              "NINE_BALL",
+              fullName,
+            );
+            return {
+              name,
+              memberId: memberNumber,
+              firstName,
+              lastName,
+              report,
+            };
+          } catch (err) {
+            return {
+              name,
+              error: err instanceof Error ? err.message : "Unknown error",
+            };
+          }
+        }),
+      );
+
+      const processingTime = Date.now() - startTime;
+      logRequest("report_nine_list_success", {
+        endpoint: "/report/nine/list",
+        userId,
+        requestId,
+        processingTimeMs: processingTime,
+        nameCount: names.length,
+      });
+
+      return c.json({ results });
+    } catch (error) {
+      const processingTime = Date.now() - startTime;
+      if (error instanceof Error) {
+        logError(error, {
+          endpoint: "/report/nine/list",
+          userId,
+          requestId,
+          processingTimeMs: processingTime,
+        });
+        return c.json({ error: error.message }, 400);
+      }
+      logError(new Error("Unknown error"), {
+        endpoint: "/report/nine/list",
+        userId,
+        requestId,
+        processingTimeMs: processingTime,
+      });
+      return c.json({ error: "Internal server error" }, 500);
+    }
+  });
+
   app.post("/wrapped/get", authMiddleware(), async (c) => {
     const startTime = Date.now();
     const userId = c.get("userId");

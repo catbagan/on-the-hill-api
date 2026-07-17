@@ -165,11 +165,24 @@ export function generateReport(
       let homeTeamScoreUpToNow = 0;
       let awayTeamScoreUpToNow = 0;
 
+      const targetPlayerId =
+        playerIdByTeam[team.id] != null
+          ? String(playerIdByTeam[team.id])
+          : undefined;
+
       for (const playerMatch of match.playerMatches) {
+        const homeId =
+          playerMatch.homePlayerStats.id != null
+            ? String(playerMatch.homePlayerStats.id)
+            : undefined;
+        const awayId =
+          playerMatch.awayPlayerStats.id != null
+            ? String(playerMatch.awayPlayerStats.id)
+            : undefined;
         const isPlayerHome =
-          playerMatch.homePlayerStats.id === playerIdByTeam[team.id];
+          targetPlayerId !== undefined && homeId === targetPlayerId;
         const isPlayerAway =
-          playerMatch.awayPlayerStats.id === playerIdByTeam[team.id];
+          targetPlayerId !== undefined && awayId === targetPlayerId;
 
         if (!isPlayerHome && !isPlayerAway) {
           const homePlayerWon =
@@ -317,7 +330,13 @@ export function generateReport(
     headToHead: stats.headToHead,
     byPosition: stats.byPosition,
     byLocation: stats.byLocation,
-    scoreDistribution: stats.scoreDistribution,
+    scoreDistribution: Object.fromEntries(
+      Object.entries(stats.scoreDistribution).sort(([a], [b]) => {
+        const [aHome] = a.split("-").map(Number);
+        const [bHome] = b.split("-").map(Number);
+        return bHome - aHome;
+      }),
+    ),
     bySkillDifference: stats.bySkillDifference,
     byOpponentSkill: stats.byOpponentSkill,
     byMySkill: stats.byMySkill,
@@ -401,21 +420,30 @@ function writeReportToCSV(report: PlayerReport, playerName: string): void {
   // Score Distribution
   csvLines.push("Score Distribution");
   csvLines.push("Score,Count");
-  Object.entries(report.scoreDistribution).forEach(([score, count]) => {
-    csvLines.push(`"${score}",${count}`);
-  });
+  Object.entries(report.scoreDistribution)
+    .sort(([a], [b]) => {
+      const [aHome] = a.split("-").map(Number);
+      const [bHome] = b.split("-").map(Number);
+      return bHome - aHome;
+    })
+    .forEach(([score, count]) => {
+      csvLines.push(`"${score}",${count}`);
+    });
   csvLines.push("");
 
   // By Skill Difference
   csvLines.push(
-    "Performance by Skill Difference (Your Skill - Opponent Skill)",
+    "Performance by Skill Difference (Opp Skill - Your Skill)",
   );
   csvLines.push("Skill Difference,Wins,Losses,Win Percentage");
-  Object.entries(report.bySkillDifference).forEach(([diff, stats]) => {
-    const total = stats.wins + stats.losses;
-    const winPct = total > 0 ? ((stats.wins / total) * 100).toFixed(1) : "0.0";
-    csvLines.push(`${diff},${stats.wins},${stats.losses},${winPct}%`);
-  });
+  Object.entries(report.bySkillDifference)
+    .sort(([a], [b]) => Number(b) - Number(a))
+    .forEach(([diff, stats]) => {
+      const total = stats.wins + stats.losses;
+      const winPct =
+        total > 0 ? ((stats.wins / total) * 100).toFixed(1) : "0.0";
+      csvLines.push(`${diff},${stats.wins},${stats.losses},${winPct}%`);
+    });
   csvLines.push("");
 
   // By Opponent Skill
@@ -435,16 +463,6 @@ function writeReportToCSV(report: PlayerReport, playerName: string): void {
     const total = stats.wins + stats.losses;
     const winPct = total > 0 ? ((stats.wins / total) * 100).toFixed(1) : "0.0";
     csvLines.push(`Skill ${skill},${stats.wins},${stats.losses},${winPct}%`);
-  });
-  csvLines.push("");
-
-  // By Innings
-  csvLines.push("Performance by Innings Played");
-  csvLines.push("Innings Range,Wins,Losses,Win Percentage");
-  Object.entries(report.byInnings).forEach(([innings, stats]) => {
-    const total = stats.wins + stats.losses;
-    const winPct = total > 0 ? ((stats.wins / total) * 100).toFixed(1) : "0.0";
-    csvLines.push(`"${innings}",${stats.wins},${stats.losses},${winPct}%`);
   });
   csvLines.push("");
 
@@ -481,6 +499,7 @@ export const handleReportGet = async (
   apaClient: IAPAClient,
   seasons?: string[],
   gameType?: string,
+  playerNameOverride?: string,
 ): Promise<any> => {
   const apaTeams = await apaClient.getTeamsForPlayer(memberId);
   let teams = sortTeamsBySeasonDesc(apaTeams.map(apaTeamToTeam));
@@ -536,7 +555,7 @@ export const handleReportGet = async (
       continue;
     }
 
-    playerIdByTeam[normalizedTeamId] = t.id;
+    playerIdByTeam[normalizedTeamId] = String(t.id);
   }
 
   const matchesByTeam: Record<
@@ -546,12 +565,13 @@ export const handleReportGet = async (
 
   for (const team of teams) {
     const teamMatches = await apaClient.getMatchesForTeam(team.apaId);
-    const matchIds = teamMatches.map((m) => m.id);
+    const matchIds = teamMatches.map((m) => String(m.id));
     team.matchIds = matchIds;
 
     for (const teamMatch of teamMatches) {
+      const matchId = String(teamMatch.id);
       try {
-        const apaMatch = await apaClient.getMatchDetails(teamMatch.id);
+        const apaMatch = await apaClient.getMatchDetails(matchId);
         const match = apaMatchToMatch(apaMatch);
         if (!matchesByTeam[team.id]) {
           matchesByTeam[team.id] = [];
@@ -563,7 +583,7 @@ export const handleReportGet = async (
           playerMatches,
         });
       } catch (error) {
-        console.error(`Error processing match ${teamMatch.id}:`, error);
+        console.error(`Error processing match ${matchId}:`, error);
       }
     }
   }
@@ -573,15 +593,10 @@ export const handleReportGet = async (
   // Get player name for CSV file
   let playerName = "Unknown_Player";
   try {
-    // Try to get player name from the first team's player data
-    if (apaTeams.length > 0) {
-      const firstTeam = apaTeams[0];
-      if (firstTeam.nickName && firstTeam.nickName.trim()) {
-        playerName = firstTeam.nickName.trim();
-      } else {
-        // Fallback to member ID if no nickname
-        playerName = `Player_${memberId}`;
-      }
+    if (playerNameOverride && playerNameOverride.trim()) {
+      playerName = playerNameOverride.trim();
+    } else if (apaTeams.length > 0 && apaTeams[0].nickName?.trim()) {
+      playerName = apaTeams[0].nickName.trim();
     } else {
       playerName = `Player_${memberId}`;
     }
@@ -590,7 +605,7 @@ export const handleReportGet = async (
     playerName = `Player_${memberId}`;
   }
 
-  // // Write report to CSV file
+  // Debug-only: uncomment to dump the report to reports/<player>_report.csv
   // writeReportToCSV(report, playerName);
 
   return {

@@ -1,0 +1,25 @@
+meta {
+  name: Report Nine List
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{host}}/api/report/nine/list
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "names": [
+      "Daniel Catbagan",
+      "Geoff Dempsey",
+      "Sara Dempsey",
+      "Alec McGlasson",
+      "Jay Manektala", 
+      "Henry Buck",
+      "Daniel Alcala"
+          ]
+  }
+}

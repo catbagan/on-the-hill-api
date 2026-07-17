@@ -23,3 +23,6 @@ Thumbs.db
 
 # Bruno environment files (contain sensitive data)
 bruno/environments/*.bru
+
+# Local debug CSV dumps from report-get.ts
+reports/

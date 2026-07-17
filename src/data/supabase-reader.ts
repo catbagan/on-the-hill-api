@@ -86,10 +86,11 @@ export class SupabaseDataReader implements IAPAClient {
   }
 
   async getMatchDetails(scheduleId: string) {
+    const normalizedId = String(scheduleId);
     const { data: match } = await this.supabase
       .from("team_matches")
       .select("*, player_matches(*)")
-      .eq("apa_match_id", scheduleId)
+      .eq("apa_match_id", normalizedId)
       .single();
 
     if (!match) {
