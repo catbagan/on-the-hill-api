@@ -18,6 +18,7 @@ import {
 } from "./middleware/rate-limit";
 import { handlePlayerSearch } from "./player-search";
 import { handleReportGet } from "./report-get";
+import { INTERNAL_PAGE_HTML } from "./internal-page";
 import { INDEX_HTML, PRIVACY_POLICY_HTML } from "./static-pages";
 import {
   handleWrappedGet,
@@ -105,6 +106,10 @@ export function createApp(config: AppConfig) {
 
   websiteApp.get("/privacy-policy", (c) => {
     return c.html(PRIVACY_POLICY_HTML);
+  });
+
+  websiteApp.get("/internal", (c) => {
+    return c.html(INTERNAL_PAGE_HTML);
   });
 
   // API app (routes will be mounted at /api)
@@ -1032,6 +1037,64 @@ export function createApp(config: AppConfig) {
       });
       return c.json({ error: "Internal server error" }, 500);
     }
+  });
+
+  // -----------------------------------------------------------
+  // Internal debug endpoints — powers the /internal HTML page.
+  // /internal/me works for any signed-in user (so the page can
+  // tell "not authorized" vs "not signed in"). Everything else
+  // is gated to daniel@catbagan.me.
+  // -----------------------------------------------------------
+  const INTERNAL_ALLOWED_EMAILS = new Set(["daniel@catbagan.me"]);
+
+  const danielOnly = async (c: any, next: any) => {
+    const supabase = getSupabase(c);
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return c.json({ error: "Not signed in" }, 401);
+    if (!INTERNAL_ALLOWED_EMAILS.has(user.email ?? "")) {
+      return c.json({ error: "Not authorized" }, 403);
+    }
+    c.set("userId", user.id);
+    await next();
+  };
+
+  app.get("/internal/me", async (c) => {
+    const supabase = getSupabase(c);
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return c.json({ error: "Not signed in" }, 401);
+    return c.json({ email: user.email, userId: user.id });
+  });
+
+  app.post("/internal/apa/search", danielOnly, async (c) => {
+    const { name } = await c.req.json();
+    if (!name) return c.json({ error: "name required" }, 400);
+    const player = await apaClient.searchForPlayer(name);
+    return c.json({ player });
+  });
+
+  app.post("/internal/apa/teams", danielOnly, async (c) => {
+    const { memberId } = await c.req.json();
+    if (!memberId) return c.json({ error: "memberId required" }, 400);
+    const teams = await apaClient.getTeamsForPlayer(String(memberId));
+    return c.json({ teams });
+  });
+
+  app.post("/internal/apa/matches", danielOnly, async (c) => {
+    const { teamId } = await c.req.json();
+    if (!teamId) return c.json({ error: "teamId required" }, 400);
+    const matches = await apaClient.getMatchesForTeam(String(teamId));
+    return c.json({ matches });
+  });
+
+  app.post("/internal/apa/match-details", danielOnly, async (c) => {
+    const { scheduleId } = await c.req.json();
+    if (!scheduleId) return c.json({ error: "scheduleId required" }, 400);
+    const match = await apaClient.getMatchDetails(String(scheduleId));
+    return c.json({ match });
   });
 
   // Main app that routes to website or API
