@@ -182,11 +182,11 @@ const setStatus = (id, kind, text) => {
   el.textContent = text;
 };
 
-async function api(path, body) {
+async function api(path, body, method = 'POST') {
   const started = performance.now();
   const res = await fetch('/api' + path, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
+    method,
+    headers: body ? {'Content-Type': 'application/json'} : {},
     credentials: 'include',
     body: body ? JSON.stringify(body) : undefined,
   });
@@ -198,7 +198,7 @@ async function api(path, body) {
 }
 
 async function checkAuth() {
-  const r = await api('/internal/me');
+  const r = await api('/internal/me', undefined, 'GET');
   if (r.ok && r.data.email) {
     setStatus('auth-status', 'ok', 'signed in');
     document.getElementById('auth-signed-out').style.display = 'none';
